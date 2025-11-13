@@ -1,5 +1,6 @@
 title: Stari Leonardo
-email: yourname@example.com
-description: >- # optional
-  Microbial ecology and ML for microbial communities.
-baseurl: "" # leave blank for user site
+email: lstari@tohoku.ac.jp
+description: "Microbial ecology & ML for microbial communities"
+theme: minima
+plugins:
+  - jekyll-feed
