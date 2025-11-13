@@ -1,6 +1,11 @@
-title: Stari Leonardo
-email: lstari@tohoku.ac.jp
-description: "Microbial ecology & ML for microbial communities"
+title: Leonardo Stari
+author:
+  name: Leonardo Stari
+  email: lstari@tohoku.ac.jp
+description: >-
+  I am a researcher at Tohoku University. My interests include environmental biotechnology and microbial degradation of pollutants.
+github_username: leostari
+googlescholar_username: GGSi3PUAAAAJ
+
+# Build settings
 theme: minima
-plugins:
-  - jekyll-feed
