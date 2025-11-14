@@ -9,8 +9,8 @@ title: Home
     <h2>About Me</h2>
     <div class="about-container">
       <div class="profile-pic-container">
-        <!-- Place your chosen image at /assets/images/profile.jpg -->
-        <img src="/assets/images/profile.jpg" alt="Leonardo Stari" class="profile-pic">
+        <!-- Place your chosen image at /assets/images/profile.JPG -->
+        <img src="/assets/images/profile.JPG" alt="Leonardo Stari" class="profile-pic">
       </div>
       <div class="bio-container">
         <p>
