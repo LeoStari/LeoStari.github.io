@@ -2,16 +2,8 @@
 layout: default
 title: Home
 ---
+
 <div class="home">
-  <nav class="main-nav">
-    <ul>
-      <li><a href="#about">About Me</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#metrics">Research Metrics</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
 
   <section id="about">
     <h2>About Me</h2>
@@ -47,18 +39,18 @@ title: Home
   <section id="research">
     <h2>Research</h2>
     <p>
-      My work focuses on microbial community formation and function, genome-based functional inference, and biodegradation. Recent projects include characterizing microbial consortia and isolating Pseudomonas strains capable of aerobic degradation of carbon tetrachloride, and assembling and analyzing complete genomes for these strains to investigate the genetic basis of degradation pathways. Key areas involve bacterial conjugation, plasmid partitioning, haloalkane dehalogenases (HLDs), and degradation of chlorinated compounds such as γ-hexachlorocyclohexane (γ-HCH), 1,1,1-trichloro-2,2-bis(4-chlorophenyl)ethane (DDT), and carbon tetrachloride (CCl4).
+      My work focuses on microbial community formation and function, genome-based functional inference, and biodegradation. Recent projects include characterizing microbial consortia and isolating Pseudomonas strains capable of aerobic degradation of carbon tetrachloride, and assembling and analyzing complete genomes for these strains to investigate the genetic basis of degradation pathways.
     </p>
   </section>
 
   <section id="metrics">
-    <h2>Research Metrics</h2>
+    <h2>Research metrics</h2>
     <div class="metrics-card">
       <div><strong>Citations</strong><div class="metric-value" id="metric-citations">—</div></div>
       <div><strong>h-index</strong><div class="metric-value" id="metric-hindex">—</div></div>
       <div><strong>Publications</strong><div class="metric-value" id="metric-pubs">—</div></div>
     </div>
-    <p class="metrics-note">Metrics are loaded from <code>/assets/data/metrics.json</code> or from your repository's scheduled update script. As of November 2025, based on available sources: ~12 citations, h-index ~2, ~11 publications (update the JSON file with latest values from Scopus or ResearchGate for accuracy).</p>
+    <p class="metrics-note">Metrics are loaded from <code>/assets/data/metrics.json</code> or from your repository's scheduled update script.</p>
   </section>
 
   <section id="publications">
@@ -92,6 +84,7 @@ title: Home
       });
     </script>
   </section>
+  
 
   <section id="contact">
     <h2>Contact</h2>
@@ -121,7 +114,3 @@ title: Home
       });
   })();
 </script>
-
-<footer>
-  <p>&copy; 2025 Leonardo Stari. Last updated: November 2025.</p>
-</footer>
