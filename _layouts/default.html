@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ page.title | default: site.title }}</title>
-    <meta name="description" content="{{ site.description }}">
-    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-  </head>
-  <body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title | default: site.title }}</title>
+<meta name="description" content="{{ site.description }}">
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
 
-    <header class="site-header">
-      <div class="wrapper">
-        <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
-        <nav class="site-nav">
-          <a class="page-link" href="#about">About Me</a>
-          <a class="page-link" href="#research">Research</a>
-          <a class="page-link" href="#publications">Publications</a>
-          <a class="page-link" href="#contact">Contact</a>
-        </nav>
-      </div>
-    </header>
+<header class="site-header">
+<div class="wrapper">
+<a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+<nav class="site-nav">
+<a class="page-link" href="#about">About Me</a>
+<a class="page-link" href="#research">Research</a>
+<a class="page-link" href="#publications">Publications</a>
+<a class="page-link" href="#contact">Contact</a>
+</nav>
+</div>
+</header>
 
-    <main class="page-content">
-      <div class="wrapper">
-        {{ content }}
-      </div>
-    </main>
+<main class="page-content">
+<div class="wrapper">
+{{ content }}
+</div>
+</main>
 
-    <footer class="site-footer">
-      <div class="wrapper">
-        <p>&copy; {% assign current_date = 'now' | date: '%Y' %}{{ current_date }} {{ site.author.name }}.</p>
-      </div>
-    </footer>
+<footer class="site-footer">
+<div class="wrapper">
+<p>&copy; {% assign current_date = 'now' | date: '%Y' %}{{ current_date }} {{ site.author.name }}.</p>
+<p class="small-links">
+<a href="https://orcid.org/0000-0002-8194-4630" target="_blank" rel="noopener">ORCID</a>
+&nbsp;•&nbsp;
+<a href="https://www.researchgate.net/profile/Leonardo-Stari" target="_blank" rel="noopener">ResearchGate</a>
+</p>
+</div>
+</footer>
 
-  </body>
+</body>
 </html>
