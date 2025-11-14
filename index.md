@@ -75,4 +75,24 @@ title: Home
   </section>
 </div>
 
-<script src="/assets/js/metrics.js"></script>
+<script>
+(function(){
+  const elC = document.getElementById('metric-citations');
+  const elH = document.getElementById('metric-hindex');
+  const elP = document.getElementById('metric-pubs');
+
+  fetch('/assets/data/metrics.json', {cache: 'no-store'})
+    .then(r => r.ok ? r.json() : Promise.reject('no metrics'))
+    .then(j => {
+      if (elC) elC.textContent = j.citations ?? '—';
+      if (elH) elH.textContent = j.hindex ?? '—';
+      if (elP) elP.textContent = j.pubs ?? '—';
+    })
+    .catch(()=>{
+      const conf = {{ site.data.metrics | jsonify }};
+      if (elC) elC.textContent = conf.citations || '—';
+      if (elH) elH.textContent = conf.hindex || '—';
+      if (elP) elP.textContent = conf.pubs || '—';
+    });
+})();
+</script>
