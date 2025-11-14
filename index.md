@@ -48,24 +48,29 @@ title: Home
   </section>
 
   <section id="publications">
-    <h2>Selected recent publications</h2>
-    <ul>
-      <li>
-        Stari L., Chien M.-F., Inoue C., et al. <em>A microbial consortium led by a novel Pseudomonas strain enables degradation of carbon tetrachloride under aerobic conditions.</em> <strong>Chemosphere</strong> 2023. (Research article / consortium study).  
-        [article page] — ScienceDirect. {index=1}
-      </li>
-
-      <li>
-        Stari L., Jittayasotorn T., Inoue C., Chien M.-F. <em>Complete genome sequence of a carbon tetrachloride–degrading Pseudomonas sp. strain Stari2.</em> <strong>Microbiology Resource Announcements</strong> (ASM) 2025. (Genome announcement; full text available on PMC). {index=2}
-      </li>
-
-      <li>
-        Deng W., Takada Y., Nanasato Y., Kishida K., Stari L., Ohtsubo Y., et al. <em>Transgenic Arabidopsis thaliana plants expressing bacterial γ-HCH dehydrochlorinase LinA</em>. <strong>BMC Biotechnology</strong> 2024. (Co-author). {index=3}
-      </li>
-    </ul>
-
-    <p class="small">For a complete and up-to-date list see: <a href="https://orcid.org/0000-0002-8194-4630" target="_blank" rel="noopener">ORCID profile</a> or your ResearchGate / Scopus records. {index=4}</p>
+  ## Publications
+  <div id="publications-list"></div>
+  <script>
+    fetch('https://pub.orcid.org/v3.0/0000-0002-8194-4630/works', {
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+      const list = document.getElementById('publications-list');
+      data.group.forEach(group => {
+        const work = group['work-summary'][0];
+        const title = work.title.title.value;
+        const year = work['publication-date'] ? work['publication-date'].year.value : 'N/A';
+        const doi = work['external-ids'] && work['external-ids']['external-id'].find(id => id['external-id-type'] === 'doi') ? work['external-ids']['external-id'].find(id => id['external-id-type'] === 'doi')['external-id-value'] : null;
+        const li = document.createElement('li');
+        li.innerHTML = `${title} (${year})${doi ? ` <a href="https://doi.org/${doi}" target="_blank">[DOI]</a>` : ''}`;
+        list.appendChild(li);
+      });
+    })
+    .catch(error => console.error('Error fetching publications:', error));
+  </script>
   </section>
+  
 
   <section id="contact">
     <h2>Contact</h2>
