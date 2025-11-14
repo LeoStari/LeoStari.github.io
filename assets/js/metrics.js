@@ -4,22 +4,24 @@
   const elH = document.getElementById('metric-hindex');
   const elP = document.getElementById('metric-pubs');
 
-  fetch('/assets/data/metrics.json', {cache: 'no-store'})
-    .then(r => r.ok ? r.json() : Promise.reject('no metrics'))
-    .then(j => {
-      if (elC) elC.textContent = j.citations ?? '—';
-      if (elH) elH.textContent = j.hindex ?? '—';
-      if (elP) elP.textContent = j.pubs ?? '—';
+  function setPlaceholders() {
+    if (elC) elC.textContent = '—';
+    if (elH) elH.textContent = '—';
+    if (elP) elP.textContent = '—';
+  }
+
+  fetch('/assets/data/metrics.json', { cache: 'no-store' })
+    .then(function(response) {
+      if (!response.ok) throw new Error('no metrics');
+      return response.json();
     })
-    .catch(()=>{
-      // If metrics file not present yet, use site config values (if provided)
-      try {
-        const conf = {{ site.data.metrics | jsonify }};
-        if (elC) elC.textContent = conf.citations || '—';
-        if (elH) elH.textContent = conf.hindex || '—';
-        if (elP) elP.textContent = conf.pubs || '—';
-      } catch(e) {
-        // no-op
-      }
+    .then(function(j) {
+      if (elC) elC.textContent = (j && j.citations != null) ? j.citations : '—';
+      if (elH) elH.textContent = (j && j.hindex != null) ? j.hindex : '—';
+      if (elP) elP.textContent = (j && j.pubs != null) ? j.pubs : '—';
+    })
+    .catch(function() {
+      // Fallback: show neutral placeholders
+      setPlaceholders();
     });
 })();
