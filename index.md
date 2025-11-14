@@ -52,19 +52,19 @@ title: Home
     <ul>
       <li>
         Stari L., Chien M.-F., Inoue C., et al. <em>A microbial consortium led by a novel Pseudomonas strain enables degradation of carbon tetrachloride under aerobic conditions.</em> <strong>Chemosphere</strong> 2023. (Research article / consortium study).  
-        [article page] — ScienceDirect. :contentReference[oaicite:1]{index=1}
+        [article page] — ScienceDirect. {index=1}
       </li>
 
       <li>
-        Stari L., Jittayasotorn T., Inoue C., Chien M.-F. <em>Complete genome sequence of a carbon tetrachloride–degrading Pseudomonas sp. strain Stari2.</em> <strong>Microbiology Resource Announcements</strong> (ASM) 2025. (Genome announcement; full text available on PMC). :contentReference[oaicite:2]{index=2}
+        Stari L., Jittayasotorn T., Inoue C., Chien M.-F. <em>Complete genome sequence of a carbon tetrachloride–degrading Pseudomonas sp. strain Stari2.</em> <strong>Microbiology Resource Announcements</strong> (ASM) 2025. (Genome announcement; full text available on PMC). {index=2}
       </li>
 
       <li>
-        Deng W., Takada Y., Nanasato Y., Kishida K., Stari L., Ohtsubo Y., et al. <em>Transgenic Arabidopsis thaliana plants expressing bacterial γ-HCH dehydrochlorinase LinA</em>. <strong>BMC Biotechnology</strong> 2024. (Co-author). :contentReference[oaicite:3]{index=3}
+        Deng W., Takada Y., Nanasato Y., Kishida K., Stari L., Ohtsubo Y., et al. <em>Transgenic Arabidopsis thaliana plants expressing bacterial γ-HCH dehydrochlorinase LinA</em>. <strong>BMC Biotechnology</strong> 2024. (Co-author). {index=3}
       </li>
     </ul>
 
-    <p class="small">For a complete and up-to-date list see: <a href="https://orcid.org/0000-0002-8194-4630" target="_blank" rel="noopener">ORCID profile</a> or your ResearchGate / Scopus records. :contentReference[oaicite:4]{index=4}</p>
+    <p class="small">For a complete and up-to-date list see: <a href="https://orcid.org/0000-0002-8194-4630" target="_blank" rel="noopener">ORCID profile</a> or your ResearchGate / Scopus records. {index=4}</p>
   </section>
 
   <section id="contact">
