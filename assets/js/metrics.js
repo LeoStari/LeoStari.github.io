@@ -1,4 +1,4 @@
-// loads /assets/data/metrics.json and fills elements with ids metric-citations, metric-hindex, metric-pubs
+// Safe metrics.js — pure JavaScript, no Jekyll/Liquid inside
 (function(){
   const elC = document.getElementById('metric-citations');
   const elH = document.getElementById('metric-hindex');
@@ -10,18 +10,31 @@
     if (elP) elP.textContent = '—';
   }
 
+  function applyMetrics(j) {
+    if (elC) elC.textContent = (j && (j.citations !== undefined && j.citations !== null)) ? j.citations : '—';
+    if (elH) elH.textContent = (j && (j.hindex !== undefined && j.hindex !== null)) ? j.hindex : '—';
+    if (elP) elP.textContent = (j && (j.pubs !== undefined && j.pubs !== null)) ? j.pubs : '—';
+  }
+
+  // Try to fetch the JSON metrics file
   fetch('/assets/data/metrics.json', { cache: 'no-store' })
     .then(function(response) {
       if (!response.ok) throw new Error('no metrics');
       return response.json();
     })
     .then(function(j) {
-      if (elC) elC.textContent = (j && j.citations != null) ? j.citations : '—';
-      if (elH) elH.textContent = (j && j.hindex != null) ? j.hindex : '—';
-      if (elP) elP.textContent = (j && j.pubs != null) ? j.pubs : '—';
+      applyMetrics(j);
     })
     .catch(function() {
-      // Fallback: show neutral placeholders
-      setPlaceholders();
+      // If fetch fails, try to read window.siteMetrics (if embedded inline by Jekyll)
+      try {
+        if (window && window.siteMetrics) {
+          applyMetrics(window.siteMetrics);
+        } else {
+          setPlaceholders();
+        }
+      } catch (e) {
+        setPlaceholders();
+      }
     });
 })();
