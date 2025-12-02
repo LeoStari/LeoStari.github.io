@@ -15,8 +15,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # fetch-depth: 0 is usually not needed for auto-commit, but kept for safety
+          # fetch-depth: 0 is important to ensure git history is present
           fetch-depth: 0 
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -37,5 +38,5 @@ jobs:
         with:
           commit_message: "Update research metrics"
           file_pattern: "assets/data/metrics.json"
-          # This creates a branch update if main has moved forward
-          branch: ${{ github.ref }}
+          # This ensures the action commits to the current branch
+          branch: ${{ github.ref_name }}
