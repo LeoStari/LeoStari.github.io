@@ -1,5 +1,10 @@
 {
-  "citations": 12,
-  "h_index": 2,
-  "publications": 8
+  "citations": null,
+  "hindex": null,
+  "pubs": 6,
+  "source_info": {
+    "orcid_works": 6,
+    "crossref_total_results": 165497
+  },
+  "updated": "2025-12-02T04:10:40.574055Z"
 }
