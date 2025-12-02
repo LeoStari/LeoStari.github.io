@@ -1,15 +1,21 @@
 name: update-metrics
+
 on:
   schedule:
     - cron: '0 3 * * 1'   # weekly update (UTC)
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: true
 
       - name: Set up Python
@@ -30,6 +36,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
+
+          # stage the metrics file if it exists (no error if missing)
           git add assets/data/metrics.json || true
-          git commit -m "Update research metrics" || echo "no changes to commit"
-          git push
+
+          # if there are staged changes, commit and push; otherwise do nothing
+          git diff --cached --quiet || (git commit -m "Update research metrics" && git push)
