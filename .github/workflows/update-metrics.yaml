@@ -70,4 +70,4 @@ jobs:
           fi
 
           # Push changes
-          git push origin HEAD
+          git push --force-with-lease origin HEAD
