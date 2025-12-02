@@ -32,13 +32,42 @@ jobs:
         run: |
           python .github/scripts/fetch_metrics.py
 
-      - name: Commit metrics
+      - name: Commit & push metrics (handles remote changes)
         run: |
+          set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
 
-          # stage the metrics file if it exists (no error if missing)
+          # Stage file (no error if missing)
           git add assets/data/metrics.json || true
 
-          # if there are staged changes, commit and push; otherwise do nothing
-          git diff --cached --quiet || (git commit -m "Update research metrics" && git push)
+          # Only continue if there's something to commit
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "Update research metrics"
+
+          # Determine current branch
+          BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          echo "Current branch: $BRANCH"
+
+          # Fetch remote branch if it exists
+          git fetch origin $BRANCH || true
+
+          # If origin/$BRANCH exists, try to rebase local commits on top of it
+          if git show-ref --verify --quiet refs/remotes/origin/$BRANCH; then
+            echo "Rebasing onto origin/$BRANCH"
+            if ! git rebase origin/$BRANCH; then
+              echo "Rebase failed — aborting rebase and falling back to merge"
+              git rebase --abort || true
+              git pull --no-edit origin $BRANCH
+            fi
+          else
+            echo "Remote branch origin/$BRANCH does not exist — skipping rebase"
+          fi
+
+          # Push changes
+          git push origin HEAD
