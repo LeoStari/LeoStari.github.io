@@ -15,7 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # fetch-depth: 0 is important to ensure git history is present
+          # fetch-depth: 0 is correct
           fetch-depth: 0 
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -29,6 +29,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
+      # --- NEW STEP START ---
+      - name: Pull latest changes
+        run: |
+          git checkout ${{ github.ref_name }}
+          git pull origin ${{ github.ref_name }}
+      # --- NEW STEP END ---
+
       - name: Run fetch script
         run: |
           python .github/scripts/fetch_metrics.py
@@ -38,5 +45,4 @@ jobs:
         with:
           commit_message: "Update research metrics"
           file_pattern: "assets/data/metrics.json"
-          # This ensures the action commits to the current branch
           branch: ${{ github.ref_name }}
