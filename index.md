@@ -59,29 +59,6 @@ title: Home
     </p>
   </section>
 
-  <section id="skills">
-    <h2>Skills & Languages</h2>
-    <div class="metrics-card">
-      <div style="text-align: left; padding: 10px;">
-        <strong>Languages</strong>
-        <ul>
-          <li>Spanish (Native)</li>
-          <li>English (Native/Super Advanced)</li>
-          <li>Japanese (Advanced)</li>
-          <li>French (Intermediate)</li>
-        </ul>
-      </div>
-      <div style="text-align: left; padding: 10px;">
-        <strong>Technical</strong>
-        <ul>
-          <li><strong>Software:</strong> Python (Deep Learning), Matlab, Java</li>
-          <li><strong>Bioinformatics:</strong> NGS Analysis, Genome Assembly</li>
-          <li><strong>Lab:</strong> Microbial Culturing, Microfabrication, GC-MS</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
   <section id="metrics">
     <h2>Research metrics</h2>
     <div class="metrics-card">
