@@ -14,18 +14,24 @@ title: Home
       </div>
       <div class="bio-container">
         <p>
-          Leonardo (Leo) Stari is an Assistant Professor in the Graduate School of Life Sciences at Tohoku University, working in the Microbial Genetics and Evolution / Molecular & Chemical Life Sciences groups. His research combines experimental microbiology and genomics to study microbial community dynamics and the biodegradation of persistent organic pollutants, with a particular focus on carbon tetrachloride degradation by novel Pseudomonas strains.
+          <strong>Leonardo (Leo) Stari</strong> is an Assistant Professor (Research) at Tohoku University, contributing to the "Digital Biosphere" project funded by MEXT. His research bridges the gap between experimental microbiology and computational modeling, with a focus on bioremediation and microbial community dynamics.
         </p>
         <p>
-          Stari completed an engineering degree at the University of Chile, worked as a project engineer, and joined Tohoku University in 2016 on a MEXT scholarship to pursue graduate studies. He lives in Sendai and enjoys video games and walking his Akita dog in his free time.
+          Originally from Santiago, Chile, Leo moved to Sendai, Japan, in 2016. He holds a PhD in Environmental Chemistry and has a diverse professional background ranging from IT project engineering to biotechnology. 
         </p>
+        <p>
+          Outside of the lab, Leo enjoys walking, listening to music, swimming, and reading novels and manga. He is also an avid gamer, enjoying titles like <em>World of Warcraft</em> and <em>Pokémon</em>.
+        </p>
+
         <h3>Career Timeline</h3>
         <ul>
-          <li><strong>August 2022–Present</strong>: Assistant Professor, Graduate School of Life Sciences, Tohoku University</li>
-          <li><strong>April–July 2022</strong>: Specially Appointed Research Fellow, Tohoku University</li>
-          <li><strong>2018–2022</strong>: PhD in Environmental Studies, Tohoku University (MEXT Scholarship)</li>
-          <li><strong>Pre-2016</strong>: Engineering Degree and Project Engineer, University of Chile</li>
+          <li><strong>April 2022–Present</strong>: Assistant Professor (Research), Tohoku University (Digital Biosphere Project)</li>
+          <li><strong>2018–2022</strong>: PhD in Environmental Chemistry, Tohoku University (MEXT Scholar)</li>
+          <li><strong>2016–2018</strong>: Master of Science in Environmental Science, Tohoku University</li>
+          <li><strong>2013–2016</strong>: IT Project Engineer, Novakem (Santiago, Chile)</li>
+          <li><strong>2004–2010</strong>: Professional Degree in Biotechnology, University of Chile</li>
         </ul>
+        
         <div class="profile-links">
           <a href="https://orcid.org/0000-0002-8194-4630" target="_blank" rel="noopener">ORCID</a>
           <a href="https://www.researchgate.net/profile/Leonardo-Stari" target="_blank" rel="noopener">ResearchGate</a>
@@ -37,10 +43,43 @@ title: Home
   </section>
 
   <section id="research">
-    <h2>Research</h2>
+    <h2>Research Interests</h2>
     <p>
-      My work focuses on microbial community formation and function, genome-based functional inference, and biodegradation. Recent projects include characterizing microbial consortia and isolating Pseudomonas strains capable of aerobic degradation of carbon tetrachloride, and assembling and analyzing complete genomes for these strains to investigate the genetic basis of degradation pathways.
+      My academic and professional path is driven by a goal to elucidate and harness microbial processes for environmental benefit. My work combines wet-lab experimentation with data-driven modeling.
     </p>
+    
+    <h3>Bioremediation & Genomics</h3>
+    <p>
+      I focus on the biodegradation of persistent organic pollutants. A key achievement of my doctoral work was the isolation and genomic analysis of <em>Pseudomonas sp. Stari2</em>, a novel strain capable of degrading Carbon Tetrachloride (CT) under <strong>aerobic conditions</strong>—a breakthrough for bioremediation strategies. I utilize joint Illumina/Nanopore sequencing to assemble complete genomes and identify metabolic pathways (e.g., dehalogenase enzymes).
+    </p>
+
+    <h3>Microbial Ecology & Deep Learning</h3>
+    <p>
+      I am deeply interested in how microbial populations assemble and evolve. I apply deep learning techniques, specifically <strong>LSTM (Long Short-Term Memory)</strong> and <strong>BiLSTM</strong> neural networks, to predict community succession and microbial dynamics based on time-series NGS data and environmental metadata.
+    </p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills & Languages</h2>
+    <div class="metrics-card">
+      <div style="text-align: left; padding: 10px;">
+        <strong>Languages</strong>
+        <ul>
+          <li>Spanish (Native)</li>
+          <li>English (Native/Super Advanced)</li>
+          <li>Japanese (Advanced)</li>
+          <li>French (Intermediate)</li>
+        </ul>
+      </div>
+      <div style="text-align: left; padding: 10px;">
+        <strong>Technical</strong>
+        <ul>
+          <li><strong>Software:</strong> Python (Deep Learning), Matlab, Java</li>
+          <li><strong>Bioinformatics:</strong> NGS Analysis, Genome Assembly</li>
+          <li><strong>Lab:</strong> Microbial Culturing, Microfabrication, GC-MS</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <section id="metrics">
@@ -50,7 +89,7 @@ title: Home
       <div><strong>h-index</strong><div class="metric-value" id="metric-hindex">—</div></div>
       <div><strong>Publications</strong><div class="metric-value" id="metric-pubs">—</div></div>
     </div>
-    <p class="metrics-note">Metrics are loaded from <code>/assets/data/metrics.json</code> or from your repository's scheduled update script.</p>
+    <p class="metrics-note">Metrics are loaded from <code>/assets/data/metrics.json</code>.</p>
   </section>
 
   <section id="publications">
@@ -71,7 +110,7 @@ title: Home
             const year = work['publication-date'] ? work['publication-date'].year.value : 'N/A';
             const doi = work['external-ids'] && work['external-ids']['external-id'].find(id => id['external-id-type'] === 'doi') ? work['external-ids']['external-id'].find(id => id['external-id-type'] === 'doi')['external-id-value'] : null;
             const li = document.createElement('li');
-            li.innerHTML = `${title} (${year})${doi ? ` <a href="https://doi.org/${doi}" target="_blank">[DOI]</a>` : ''}`;
+            li.innerHTML = `<strong>${title}</strong> (${year})${doi ? ` <a href="https://doi.org/${doi}" target="_blank">[DOI]</a>` : ''}`;
             list.appendChild(li);
           });
         } else {
@@ -85,11 +124,11 @@ title: Home
     </script>
   </section>
   
-
   <section id="contact">
     <h2>Contact</h2>
     <p>
-      You can reach me at: <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+      You can reach me at: <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a><br>
+      <em>(or via leonardostari@gmail.com)</em>
     </p>
   </section>
 </div>
