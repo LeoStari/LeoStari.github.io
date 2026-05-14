@@ -1,8 +1,5 @@
-# Theme: Custom Modern Academic Portfolio
-# Using minimal base theme for custom styling
-theme: minima
-
 title: Leonardo Stari
+baseurl: ""
 author:
   name: Leonardo Stari
   email: lstari@tohoku.ac.jp
