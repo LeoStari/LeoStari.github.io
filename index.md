@@ -8,7 +8,7 @@ title: Home
   <h2>About Me</h2>
   <div class="about-card">
     <div class="about-image">
-      <img src="/assets/images/profile.jpg" alt="Leonardo Stari">
+      <img src="{{ '/assets/images/profile.jpg' | relative_url }}" alt="Leonardo Stari">
     </div>
     <div class="about-text">
       <h3>Hi, I am Leonardo (Leo) Stari</h3>
@@ -138,24 +138,24 @@ title: Home
   </div>
 </section>
 
-<!-- Metrics Section -->
+<!-- Metrics Section - Using Jekyll Liquid template to read from _data/metrics.json -->
 <section id="metrics" class="fade-in">
   <h2>Research Metrics</h2>
   <div class="metrics-grid">
     <div class="metric-card">
       <div class="metric-label">Citations</div>
-      <div class="metric-value" id="metric-citations">—</div>
+      <div class="metric-value">{{ site.data.metrics.citations | default: "—" }}</div>
     </div>
     <div class="metric-card">
       <div class="metric-label">h-index</div>
-      <div class="metric-value" id="metric-hindex">—</div>
+      <div class="metric-value">{{ site.data.metrics.hindex | default: "—" }}</div>
     </div>
     <div class="metric-card">
       <div class="metric-label">Publications</div>
-      <div class="metric-value" id="metric-pubs">—</div>
+      <div class="metric-value">{{ site.data.metrics.pubs | default: "—" }}</div>
     </div>
   </div>
-  <p class="metrics-note">Metrics based on Scopus / Google Scholar data.</p>
+  <p class="metrics-note">Metrics based on Scopus / Google Scholar data. Updated via Python script.</p>
 </section>
 
 <!-- Publications Section -->

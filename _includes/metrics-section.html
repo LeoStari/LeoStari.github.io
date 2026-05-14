@@ -1,0 +1,19 @@
+<!-- Metrics Section - Using Jekyll Liquid Template -->
+<section id="metrics" class="fade-in">
+  <h2>Research Metrics</h2>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Citations</div>
+      <div class="metric-value">{{ site.data.metrics.citations | default: "—" }}</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">h-index</div>
+      <div class="metric-value">{{ site.data.metrics.hindex | default: "—" }}</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Publications</div>
+      <div class="metric-value">{{ site.data.metrics.pubs | default: "—" }}</div>
+    </div>
+  </div>
+  <p class="metrics-note">Metrics based on Scopus / Google Scholar data. Last updated by Python script.</p>
+</section>
