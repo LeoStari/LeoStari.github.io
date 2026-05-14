@@ -13,7 +13,7 @@ title: Home
     <div class="about-text">
       <h3>Hi, I am Leonardo (Leo) Stari</h3>
       <p>
-        I am currently an <strong>Assistant Professor (Research)</strong> at 
+        I am currently a <strong>Specially Appointed Research Fellow</strong> at 
         <a href="https://www.tohoku.ac.jp/" target="_blank" rel="noopener">Tohoku University</a>, 
         contributing to the <em>"Digital Biosphere"</em> project funded by MEXT. My research bridges 
         the gap between experimental microbiology and computational modeling, with a focus on 
@@ -33,7 +33,12 @@ title: Home
       <h3 style="margin-top: var(--space-lg);">Career Timeline</h3>
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-date">April 2022 – Present</div>
+          <div class="timeline-date">2026 – Present</div>
+          <div class="timeline-title">Specially Appointed Research Fellow (特任研究員)</div>
+          <div class="timeline-desc">Tohoku University, Digital Biosphere Project</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">April 2022 – March 2026</div>
           <div class="timeline-title">Assistant Professor (Research)</div>
           <div class="timeline-desc">Tohoku University, Digital Biosphere Project</div>
         </div>
@@ -60,8 +65,8 @@ title: Home
       </div>
 
       <div style="margin-top: var(--space-lg); display: flex; gap: var(--space-xs); flex-wrap: wrap;">
-        <a href="https://orcid.org/0000-0002-8194-4630" target="_blank" rel="noopener" style="padding: 8px 16px; background: var(--accent); color: white; border-radius: var(--radius-sm); font-size: 0.9rem;">ORCID</a>
-        <a href="https://www.researchgate.net/profile/Leonardo-Stari" target="_blank" rel="noopener" style="padding: 8px 16px; background: var(--text-muted); color: white; border-radius: var(--radius-sm); font-size: 0.9rem;">ResearchGate</a>
+        <a href="https://orcid.org/0000-0002-8194-4630" target="_blank" rel="noopener" style="padding: 8px 16px; background: #A6CE39; color: white; border-radius: var(--radius-sm); font-size: 0.9rem;">ORCID</a>
+        <a href="https://www.researchgate.net/profile/Leonardo-Stari" target="_blank" rel="noopener" style="padding: 8px 16px; background: #00CCBB; color: white; border-radius: var(--radius-sm); font-size: 0.9rem;">ResearchGate</a>
         <a href="https://www.linkedin.com/in/lstari" target="_blank" rel="noopener" style="padding: 8px 16px; background: #0077b5; color: white; border-radius: var(--radius-sm); font-size: 0.9rem;">LinkedIn</a>
       </div>
     </div>
@@ -134,6 +139,26 @@ title: Home
       <span class="stat-highlight">90% accuracy</span> in forecasting OTU profiles. We discovered that carbon 
       sources act as deterministic filters and that the "Rare Biosphere" follows distinct successional trajectories 
       compared to abundant taxa.
+    </div>
+  </div>
+</section>
+
+<!-- Latest Publication Highlight -->
+<section id="latest-publication" class="fade-in">
+  <h2>Latest Publication</h2>
+  <div class="research-section" style="border-left: 4px solid var(--accent);">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--space-sm);">
+      <div>
+        <span style="background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">📢 NEW</span>
+        <h3 style="margin-top: var(--space-sm);">Carbon Source Acts as a Deterministic Filter Shaping Microbial Community Assembly in the Digital Biosphere</h3>
+      </div>
+      <a href="https://doi.org/10.1093/ismeco/ycag108" target="_blank" rel="noopener" style="background: var(--accent); color: white; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; text-decoration: none;">View Paper →</a>
+    </div>
+    <p style="margin-top: var(--space-sm);">
+      <em>ISME Communications</em> (2025) | DOI: <a href="https://doi.org/10.1093/ismeco/ycag108" target="_blank" rel="noopener">10.1093/ismeco/ycag108</a>
+    </p>
+    <div class="highlight-text">
+      This study reveals how carbon sources serve as deterministic filters in microbial community assembly within the Digital Biosphere ecosystem. Using LSTM networks trained on 522 high-resolution time-series samples, we achieved >90% accuracy in predicting OTU profiles and demonstrated that the "Rare Biosphere" follows distinct successional trajectories compared to abundant taxa.
     </div>
   </div>
 </section>
