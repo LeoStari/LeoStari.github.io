@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="{{ '/assets/images/profile.jpg' | absolute_url }}">
+  <link rel="icon" type="image/png" href="{{ '/assets/images/profile.JPG' | absolute_url }}">
 </head>
 <body>
 
@@ -36,7 +36,7 @@
   <header id="top" class="hero">
     <div class="hero-content">
       <div class="hero-image-container">
-        <img src="{{ '/assets/images/profile.jpg' | absolute_url }}" alt="Leonardo Stari" class="hero-image">
+        <img src="{{ '/assets/images/profile.JPG' | absolute_url }}" alt="Leonardo Stari" class="hero-image" onerror="this.style.display='none'; this.parentElement.classList.add('no-image');">
       </div>
       <h1 class="hero-title">{{ site.title }}</h1>
       <p class="hero-subtitle">Assistant Professor (Research) at Tohoku University</p>
@@ -45,16 +45,16 @@
       <!-- Social Icons -->
       <div class="hero-social">
         <a href="https://orcid.org/0000-0002-8194-4630" target="_blank" rel="noopener" class="social-icon" title="ORCID">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.404 0 .731.331.731.731 0 .404-.327.731-.731.731a.732.732 0 0 1-.731-.731c0-.404.327-.731.731-.731zm-.756 5.668h1.502c.079 0 .143-.064.143-.143V4.52c0-.079-.064-.143-.143-.143H6.613c-.079 0-.143.064-.143.143v1.34h.328v.756h-.328v3.268c0 .079.064.143.143.143zm3.338 0h1.502c.079 0 .143-.064.143-.143V6.985c0-.836.62-1.493 1.565-1.493s1.565.657 1.565 1.493v1.515h1.196c.079 0 .143.064.143.143v.756a.143.143 0 0 1-.143.143h-1.196v3.268c0 .079-.064.143-.143.143h-1.502a.143.143 0 0 1-.143-.143v-3.268H9.951a.143.143 0 0 1-.143-.143v-.756c0-.079.064-.143.143-.143z"/></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.404 0 .731.331.731.731 0 .404-.327.731-.731.731a.732.732 0 0 1-.731-.731c0-.404.327-.731.731-.731zm-.756 5.668h1.502c.079 0 .143-.064.143-.143V4.52c0-.079-.064-.143-.143-.143H6.613c-.079 0-.143.064-.143.143v1.34h.328v.756h-.328v3.268c0 .079.064.143.143.143zm3.338 0h1.502c.079 0 .143-.064.143-.143V6.985c0-.836.62-1.493 1.565-1.493s1.565.657 1.565 1.493v1.515h1.196c.079 0 .143.064.143.143v.756a.143.143 0 0 1-.143.143h-1.196v3.268c0 .079-.064.143-.143.143h-1.502a.143.143 0 0 1-.143-.143v-3.268H9.951a.143.143 0 0 1-.143-.143v-.756c0-.079.064-.143.143-.143z" fill="currentColor"/></svg>
         </a>
         <a href="https://www.researchgate.net/profile/Leonardo-Stari" target="_blank" rel="noopener" class="social-icon" title="ResearchGate">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.5 2H6.5C3.46 2 1 4.46 1 7.5v9C1 17.54 3.46 20 6.5 20h11c3.04 0 5.5-2.46 5.5-5.5v-9C23 4.46 20.54 2 17.5 2zm-5.5 16c-1.86 0-3.4-1.42-3.48-3.2h-.02c-.08 1.78-1.62 3.2-3.48 3.2H3v-.54c0-3.56 2.9-6.46 6.5-6.46s6.5 2.9 6.5 6.46v.54h-5.5zm4.02-3.2c-.08 1.78-1.62 3.2-3.48 3.2s-3.4-1.42-3.48-3.2H7.5c.08 2.36 1.96 4.2 4.5 4.2s4.42-1.84 4.5-4.2h-3.48z"/></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M17.5 2H6.5C3.46 2 1 4.46 1 7.5v9C1 17.54 3.46 20 6.5 20h11c3.04 0 5.5-2.46 5.5-5.5v-9C23 4.46 20.54 2 17.5 2zm-5.5 16c-1.86 0-3.4-1.42-3.48-3.2h-.02c-.08 1.78-1.62 3.2-3.48 3.2H3v-.54c0-3.56 2.9-6.46 6.5-6.46s6.5 2.9 6.5 6.46v.54h-5.5zm4.02-3.2c-.08 1.78-1.62 3.2-3.48 3.2s-3.4-1.42-3.48-3.2H7.5c.08 2.36 1.96 4.2 4.5 4.2s4.42-1.84 4.5-4.2h-3.48z" fill="currentColor"/></svg>
         </a>
         <a href="https://www.linkedin.com/in/lstari" target="_blank" rel="noopener" class="social-icon" title="LinkedIn">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="currentColor"/></svg>
         </a>
         <a href="https://www.scopus.com/authid/detail.uri?authorId=58094418800" target="_blank" rel="noopener" class="social-icon" title="Scopus">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.998 4.272c1.253 0 2.142.133 2.666.398.524.266.786.698.786 1.296 0 .398-.133.732-.398.998-.266.266-.698.398-1.296.398H11v1.332h.398c.524 0 .998.133 1.332.398.334.266.5.632.5 1.098 0 .466-.166.864-.5 1.198-.334.334-.772.5-1.332.5H11v4h-2V4.272h.998z"/></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.998 4.272c1.253 0 2.142.133 2.666.398.524.266.786.698.786 1.296 0 .398-.133.732-.398.998-.266.266-.698.398-1.296.398H11v1.332h.398c.524 0 .998.133 1.332.398.334.266.5.632.5 1.098 0 .466-.166.864-.5 1.198-.334.334-.772.5-1.332.5H11v4h-2V4.272h.998z" fill="currentColor"/></svg>
         </a>
       </div>
     </div>

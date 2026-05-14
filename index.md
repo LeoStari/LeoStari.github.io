@@ -8,7 +8,7 @@ title: Home
   <h2>About Me</h2>
   <div class="about-card">
     <div class="about-image">
-      <img src="{{ '/assets/images/profile.jpg' | relative_url }}" alt="Leonardo Stari">
+      <img src="{{ '/assets/images/profile.JPG' | absolute_url }}" alt="Leonardo Stari" onerror="this.parentElement.style.background='var(--accent)'; this.style.display='none';">
     </div>
     <div class="about-text">
       <h3>Hi, I am Leonardo (Leo) Stari</h3>

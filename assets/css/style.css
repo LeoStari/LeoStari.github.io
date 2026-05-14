@@ -272,6 +272,9 @@ em { font-style: italic; color: var(--text-secondary); }
 
 .hero-image-container {
   margin-bottom: var(--space-lg);
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .hero-image {
@@ -281,6 +284,15 @@ em { font-style: italic; color: var(--text-secondary); }
   border-radius: var(--radius-full);
   border: 4px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.hero-image-container.no-image::after {
+  content: '';
+  display: block;
+  width: 160px;
+  height: 160px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
 }
 
 .hero-title {
