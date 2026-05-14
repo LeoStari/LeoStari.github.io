@@ -37,20 +37,20 @@ title: Home
           <div class="timeline-title">Specially Appointed Research Fellow (特任研究員)</div>
           <div class="timeline-desc">Tohoku University, Digital Biosphere Project</div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-date">April 2022 – March 2026</div>
-          <div class="timeline-title">Assistant Professor (Research)</div>
-          <div class="timeline-desc">Tohoku University, Digital Biosphere Project</div>
+        <div class="timeline-item" style="background: rgba(255,255,255,0.04); border-radius: var(--radius-sm); padding: 12px !important;">
+          <div class="timeline-date">Apr 2026</div>
+          <div class="timeline-title">Moved to Mei Lab (環境科学研究科)</div>
+          <div class="timeline-desc">Focus: Selenate reducing bacteria. <a href="https://web.tohoku.ac.jp/eco-remediation/" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: underline;">Visit Lab Website →</a></div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">2018 – 2022</div>
-          <div class="timeline-title">PhD in Environmental Chemistry</div>
-          <div class="timeline-desc">Tohoku University (MEXT Scholar)</div>
+          <div class="timeline-date">2018 – Mar 2022</div>
+          <div class="timeline-title">Ph.D., Environmental Studies</div>
+          <div class="timeline-desc">Tohoku University</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-date">2016 – 2018</div>
-          <div class="timeline-title">Master of Science in Environmental Science</div>
-          <div class="timeline-desc">Tohoku University</div>
+          <div class="timeline-title">Master's degree, Environmental Engineering Technology / Environmental Technology</div>
+          <div class="timeline-desc">Tohoku University<br><em>Bioremediation of chlorinated methanes</em></div>
         </div>
         <div class="timeline-item">
           <div class="timeline-date">2013 – 2016</div>
@@ -58,9 +58,14 @@ title: Home
           <div class="timeline-desc">Novakem, Santiago, Chile</div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-date">2004 – 2010</div>
-          <div class="timeline-title">Professional Degree in Biotechnology</div>
-          <div class="timeline-desc">University of Chile</div>
+          <div class="timeline-date">2006 – 2012</div>
+          <div class="timeline-title">Engineer's degree, Biotechnology</div>
+          <div class="timeline-desc">Universidad de Chile<br><small>Seishin, Renewable Energies Lab. (2006-2009) | Intro. Japanese course & assistant teacher (2007-2009) | Summer school teacher | Thesis in biofuels</small></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2004 – 2005</div>
+          <div class="timeline-title">Bachelor, Science</div>
+          <div class="timeline-desc">Universidad de Chile<br><small>Bachelor degree, thesis in bioethics</small></div>
         </div>
       </div>
 
