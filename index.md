@@ -149,16 +149,16 @@ title: Home
   <div class="research-section" style="border-left: 4px solid var(--accent);">
     <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--space-sm);">
       <div>
-        <span style="background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">📢 NEW</span>
-        <h3 style="margin-top: var(--space-sm);">Carbon Source Acts as a Deterministic Filter Shaping Microbial Community Assembly in the Digital Biosphere</h3>
+        <span style="background: #38a169; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">📢 NEW</span>
+        <h3 style="margin-top: var(--space-sm);">Carbon Source Acts as a Deterministic Filter Shaping Microbial Succession and Rare-Abundant Decoupling in Soil Bacterial Communities</h3>
       </div>
       <a href="https://doi.org/10.1093/ismeco/ycag108" target="_blank" rel="noopener" style="background: var(--accent); color: white; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; text-decoration: none;">View Paper →</a>
     </div>
     <p style="margin-top: var(--space-sm);">
-      <em>ISME Communications</em> (2025) | DOI: <a href="https://doi.org/10.1093/ismeco/ycag108" target="_blank" rel="noopener">10.1093/ismeco/ycag108</a>
+      <em>ISME Communications</em> | Published: April 20, 2026 | DOI: <a href="https://doi.org/10.1093/ismeco/ycag108" target="_blank" rel="noopener">10.1093/ismeco/ycag108</a>
     </p>
     <div class="highlight-text">
-      This study reveals how carbon sources serve as deterministic filters in microbial community assembly within the Digital Biosphere ecosystem. Using LSTM networks trained on 522 high-resolution time-series samples, we achieved >90% accuracy in predicting OTU profiles and demonstrated that the "Rare Biosphere" follows distinct successional trajectories compared to abundant taxa.
+      We investigated how chemically diverse carbon sources act as ecological filters shaping soil bacterial communities. Null model analysis confirmed the carbon source as the primary deterministic filter, enforcing high reproducibility (homogeneous selection governing ~74% of assembly among replicates) and overriding stochastic effects. Crucially, abundant (>1%) and rare (<0.1%) taxa exhibited decoupled assembly mechanisms — while abundant taxa were driven by dispersal limitation (~59%) and variable selection, the rare biosphere displayed a temporal regime shift, transitioning from stochastic isolation to strong deterministic selection (~50%) during later successional stages. This reframes the rare biosphere as a "latent responder" reservoir recruited by metabolic byproducts rather than the primary substrate.
     </div>
   </div>
 </section>
