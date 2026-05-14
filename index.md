@@ -35,12 +35,17 @@ title: Home
         <div class="timeline-item">
           <div class="timeline-date">2026 – Present</div>
           <div class="timeline-title">Specially Appointed Research Fellow (特任研究員)</div>
-          <div class="timeline-desc">Tohoku University, Digital Biosphere Project</div>
+          <div class="timeline-desc">Tohoku University</div>
         </div>
         <div class="timeline-item" style="background: rgba(255,255,255,0.04); border-radius: var(--radius-sm); padding: 12px !important;">
           <div class="timeline-date">Apr 2026</div>
           <div class="timeline-title">Moved to Mei Lab (環境科学研究科)</div>
           <div class="timeline-desc">Focus: Selenate reducing bacteria. <a href="https://web.tohoku.ac.jp/eco-remediation/" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: underline;">Visit Lab Website →</a></div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">April 2022 – March 2026</div>
+          <div class="timeline-title">Assistant Professor (Research)</div>
+          <div class="timeline-desc">Tohoku University, Digital Biosphere Project</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-date">2018 – Mar 2022</div>
