@@ -1,11 +1,17 @@
+# Theme: Custom Modern Academic Portfolio
+# Using minimal base theme for custom styling
+theme: minima
+
 title: Leonardo Stari
 author:
   name: Leonardo Stari
   email: lstari@tohoku.ac.jp
 description: >-
-  I am a researcher at Tohoku University. My interests include environmental biotechnology and microbial degradation of pollutants.
+  Assistant Professor at Tohoku University. Researching environmental biotechnology and microbial degradation of pollutants.
+
 github_username: leostari
 googlescholar_username: GGSi3PUAAAAJ
 
-# Build settings
-theme: minima
+# Minima settings
+minima:
+  skin: auto

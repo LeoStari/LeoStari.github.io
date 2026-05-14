@@ -16,17 +16,16 @@
     if (elP) elP.textContent = (j && (j.pubs !== undefined && j.pubs !== null)) ? j.pubs : '—';
   }
 
-  // Try to fetch the JSON metrics file
-  fetch('/assets/data/metrics.json', { cache: 'no-store' })
-    .then(function(response) {
-      if (!response.ok) throw new Error('no metrics');
-      return response.json();
-    })
-    .then(function(j) {
-      applyMetrics(j);
-    })
-    .catch(function() {
-      // If fetch fails, try to read window.siteMetrics (if embedded inline by Jekyll)
+  // Try multiple fetch locations for metrics data
+  const possiblePaths = [
+    '/data/metrics.json',      // Jekyll copies _data/ to root
+    '/assets/data/metrics.json',
+    '/_data/metrics.json'
+  ];
+
+  function tryFetch(paths, index) {
+    if (index >= paths.length) {
+      // All paths failed, use fallback
       try {
         if (window && window.siteMetrics) {
           applyMetrics(window.siteMetrics);
@@ -36,5 +35,21 @@
       } catch (e) {
         setPlaceholders();
       }
-    });
+      return;
+    }
+
+    fetch(paths[index], { cache: 'no-store' })
+      .then(function(response) {
+        if (!response.ok) throw new Error('not found');
+        return response.json();
+      })
+      .then(function(j) {
+        applyMetrics(j);
+      })
+      .catch(function() {
+        tryFetch(paths, index + 1);
+      });
+  }
+
+  tryFetch(possiblePaths, 0);
 })();
