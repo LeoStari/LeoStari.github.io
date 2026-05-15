@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="Core6K.js"></script>
+<meta charset="UTF-8">
+<style>
+  body {
+    background-color: #0b0c10;
+    color: #c5c6c7;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* =========================================================
+     BACKGROUND ANIMATION
+  ========================================================= */
+
+  #background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .bg-word {
+    position: absolute;
+    color: #ffffff;
+    white-space: nowrap;
+    animation-name: moveLeft;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-duration: 20s;
+    user-select: none;
+  }
+
+  @keyframes moveLeft {
+    from {
+      left: 100vw;
+      transform: translateX(0);
+    }
+
+    to {
+      left: -20vw;
+      transform: translateX(-100%);
+    }
+  }
+
+  /* =========================================================
+     FOREGROUND LAYOUT
+  ========================================================= */
+
+  #foreground {
+    position: relative;
+    z-index: 10;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 2rem;
+
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+
+    padding: 2rem;
+    padding-bottom: 4rem;
+
+    overflow-y: auto;
+  }
+
+  /* =========================================================
+     MAIN WORD CARD
+  ========================================================= */
+
+  .main-card {
+    background: rgba(31, 40, 51, 0.88);
+
+    border: 1px solid #45a29e;
+    border-radius: 18px;
+
+    padding: 2rem 2.5rem;
+
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+
+    animation: fadeIn 0.6s ease-in-out;
+
+    width: min(920px, 95%);
+    box-sizing: border-box;
+  }
+
+  .reading {
+    font-size: 1.5rem;
+    color: #a0a0a0;
+    margin-bottom: 0.3rem;
+  }
+
+  .kanji {
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: bold;
+    letter-spacing: 0.15rem;
+    margin: 0;
+    color: #ffffff;
+    line-height: 1.1;
+  }
+
+  .meaning {
+    font-size: 1.4rem;
+    color: #66fcf1;
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+
+  /* =========================================================
+     META TAGS
+  ========================================================= */
+
+  .meta-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 0.5rem;
+
+    margin-top: 1rem;
+  }
+
+  .meta-tag {
+    display: inline-flex;
+    align-items: center;
+
+    border: 1px solid rgba(69, 162, 158, 0.7);
+    background: rgba(69, 162, 158, 0.15);
+
+    color: #c5c6c7;
+
+    border-radius: 999px;
+
+    padding: 0.3rem 0.75rem;
+
+    font-size: 0.8rem;
+    line-height: 1.2;
+
+    white-space: nowrap;
+  }
+
+  /* =========================================================
+     DETAIL SECTIONS
+  ========================================================= */
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    gap: 1rem;
+
+    margin-top: 1.4rem;
+    width: 100%;
+  }
+
+  .detail-section {
+    background: rgba(11, 12, 16, 0.4);
+
+    border: 1px solid rgba(197, 198, 199, 0.2);
+    border-radius: 12px;
+
+    padding: 1rem 1.1rem;
+
+    text-align: left;
+  }
+
+  .detail-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+
+    color: #45a29e;
+
+    font-weight: 700;
+
+    margin-bottom: 0.8rem;
+  }
+
+  /* =========================================================
+     SENSE / MEANING BLOCKS
+  ========================================================= */
+
+  .sense {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .sense:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .sense-pos {
+    color: #66fcf1;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    line-height: 1.4;
+  }
+
+  .sense-defs {
+    color: #ffffff;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+
+  .sense-notes {
+    margin-top: 0.5rem;
+
+    color: #a0a0a0;
+
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  /* =========================================================
+     INLINE CHIPS / LISTS
+  ========================================================= */
+
+  .inline-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .inline-chip {
+    border: 1px solid rgba(197, 198, 199, 0.25);
+    border-radius: 999px;
+
+    padding: 0.28rem 0.7rem;
+
+    font-size: 0.84rem;
+    line-height: 1.3;
+
+    color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .mini-label {
+    color: #888;
+
+    font-size: 0.75rem;
+    text-transform: uppercase;
+
+    font-weight: 700;
+
+    display: block;
+
+    margin-bottom: 0.35rem;
+  }
+
+  /* =========================================================
+     KANJI CARDS
+  ========================================================= */
+
+  .kanji-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 1.5rem;
+
+    width: 100%;
+    max-width: 1200px;
+
+    animation: fadeIn 0.9s ease-in-out;
+  }
+
+  .k-card {
+    background: rgba(11, 12, 16, 0.92);
+
+    border: 1px solid #c5c6c7;
+    border-radius: 14px;
+
+    padding: 1.5rem;
+
+    width: min(320px, 95vw);
+    box-sizing: border-box;
+
+    text-align: left;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .k-char-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+
+    color: #ffffff;
+
+    text-align: center;
+
+    margin-bottom: 0.4rem;
+    line-height: 1.1;
+  }
+
+  .k-stat {
+    font-size: 0.95rem;
+
+    color: #45a29e;
+
+    text-align: center;
+
+    font-weight: bold;
+
+    margin-bottom: 0.2rem;
+  }
+
+  .k-freq {
+    font-size: 0.82rem;
+
+    color: #a0a0a0;
+
+    text-align: center;
+
+    margin-bottom: 1.3rem;
+  }
+
+  .k-section {
+    font-size: 1rem;
+    line-height: 1.5;
+
+    margin-bottom: 0.9rem;
+  }
+
+  .k-label {
+    color: #888;
+
+    font-size: 0.8rem;
+    text-transform: uppercase;
+
+    font-weight: bold;
+
+    display: block;
+
+    margin-bottom: 0.2rem;
+  }
+
+  .k-value {
+    color: #ffffff;
+    font-size: 1.05rem;
+  }
+
+  .compounds-list {
+    margin: 0.5rem 0 0 0;
+    padding-left: 1.2rem;
+
+    color: #c5c6c7;
+
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* =========================================================
+     SCROLLBAR
+  ========================================================= */
+
+  #foreground::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  #foreground::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  #foreground::-webkit-scrollbar-thumb {
+    background: rgba(69, 162, 158, 0.45);
+    border-radius: 999px;
+  }
+
+  #foreground::-webkit-scrollbar-thumb:hover {
+    background: rgba(69, 162, 158, 0.7);
+  }
+
+  /* =========================================================
+     ANIMATIONS
+  ========================================================= */
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* =========================================================
+     MOBILE
+  ========================================================= */
+
+  @media (max-width: 768px) {
+    #foreground {
+      padding: 1rem;
+      gap: 1.2rem;
+    }
+
+    .main-card {
+      padding: 1.4rem;
+    }
+
+    .reading {
+      font-size: 1.2rem;
+    }
+
+    .meaning {
+      font-size: 1.1rem;
+    }
+
+    .k-card {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div id="background"></div>
+  <div id="foreground"></div>
+
+<script>
+  let rawWordList = [];
+  const dictionaryCache = {};
+  const kanjiCache = {};
+  let refreshCounter = 0;
+  let hasRenderedOnce = false;
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, (m) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[m]));
+  }
+
+  function uniq(arr) {
+    return [...new Set((arr || []).filter(Boolean))];
+  }
+
+  function formatJapaneseForm(j) {
+    const word = (j?.word || '').trim();
+    const reading = (j?.reading || '').trim();
+
+    if (word && reading && word !== reading) {
+      return `${word} 【${reading}】`;
+    }
+    return word || reading || '';
+  }
+
+  function collectKanjiFromForms(forms, fallbackWord = '') {
+    const chars = new Set();
+
+    (forms || []).forEach(form => {
+      const source = form?.word || '';
+      const matches = source.match(/[\u4e00-\u9faf]/g) || [];
+      matches.forEach(ch => chars.add(ch));
+    });
+
+    if (chars.size === 0) {
+      const matches = (fallbackWord || '').match(/[\u4e00-\u9faf]/g) || [];
+      matches.forEach(ch => chars.add(ch));
+    }
+
+    return [...chars];
+  }
+
+  // =========================================================
+  // 1. INITIALIZE & LOAD LOCAL LIST
+  // =========================================================
+  async function init() {
+    if (typeof myWords !== 'undefined' && myWords) {
+      rawWordList = myWords.split('\n').map(w => w.trim()).filter(Boolean);
+    } else {
+      rawWordList = ["政治", "努力", "経験", "成功", "歴史", "自然", "環境"];
+    }
+
+    await refreshForeground();
+    setInterval(refreshForeground, 60000);
+    setInterval(spawnBgWord, 1500);
+  }
+
+  // =========================================================
+  // 2. BACKGROUND ANIMATION
+  // =========================================================
+  function spawnBgWord() {
+    if (rawWordList.length === 0) return;
+
+    const word = rawWordList[Math.floor(Math.random() * rawWordList.length)];
+    const el = document.createElement('div');
+    el.className = 'bg-word';
+    el.innerText = word;
+
+    const size = Math.random() * 6 + 2;
+    el.style.fontSize = size + 'rem';
+    el.style.top = (Math.random() * 90) + '%';
+    el.style.opacity = (size / 10) * 0.15 + 0.05;
+
+    document.getElementById('background').appendChild(el);
+    setTimeout(() => el.remove(), 20000);
+  }
+
+  // =========================================================
+  // 3. MULTI-PROXY FETCHING SYSTEM
+  // =========================================================
+  async function fetchWithProxy(targetUrl, isJson = true) {
+    const proxies = [
+      'https://api.allorigins.win/raw?url=',
+      'https://api.codetabs.com/v1/proxy?quest=',
+      'https://corsproxy.io/?'
+    ];
+
+    for (let i = 0; i < proxies.length; i++) {
+      try {
+        const res = await fetch(proxies[i] + encodeURIComponent(targetUrl));
+        if (!res.ok) continue;
+
+        const text = await res.text();
+
+        if (isJson) {
+          try {
+            return JSON.parse(text);
+          } catch {
+            continue;
+          }
+        }
+
+        return text;
+      } catch (e) {
+        console.warn(`Proxy ${proxies[i]} failed, trying the next one...`);
+      }
+    }
+
+    throw new Error("All proxies failed to connect to Jisho.");
+  }
+
+  // =========================================================
+  // 4. JISHO WORD DETAILS
+  // =========================================================
+  async function fetchJishoWord(word) {
+    if (dictionaryCache[word]) return dictionaryCache[word];
+
+    try {
+      const apiUrl = 'https://jisho.org/api/v1/search/words?keyword=' + encodeURIComponent(word);
+      const jisho = await fetchWithProxy(apiUrl, true);
+      const entry = jisho?.data?.[0];
+
+      if (!entry) throw new Error('No word entry found.');
+
+      const japaneseForms = entry.japanese || [];
+      const senses = entry.senses || [];
+
+      const kanji = japaneseForms.find(j => j.word)?.word || word;
+      const reading = japaneseForms.find(j => j.reading)?.reading || japaneseForms[0]?.reading || '';
+
+      const status = [];
+      if (entry.is_common) status.push('common word');
+
+      const jlptValue = Array.isArray(entry.jlpt) ? entry.jlpt[0] : entry.jlpt;
+      if (jlptValue) status.push(`jlpt n${jlptValue}`);
+
+      if (Array.isArray(entry.tags) && entry.tags.length) {
+        status.push(...entry.tags);
+      }
+
+      const meanings = senses.map(sense => ({
+        pos: uniq(sense.parts_of_speech || []),
+        defs: sense.english_definitions || [],
+        info: uniq(sense.info || []),
+        tags: uniq(sense.tags || []),
+        restrictions: uniq(sense.restrictions || []),
+        links: sense.links || [],
+        seeAlso: uniq(sense.see_also || []),
+        antonyms: uniq(sense.antonyms || [])
+      }));
+
+      const extraForms = uniq(
+        japaneseForms
+          .map(formatJapaneseForm)
+          .filter(Boolean)
+      );
+
+      const notes = uniq(
+        senses.flatMap(s => [
+          ...(s.info || []),
+          ...(s.tags || []),
+          ...(s.restrictions || [])
+        ])
+      );
+
+      const relatedKanji = collectKanjiFromForms(japaneseForms, word);
+
+      const result = {
+        kanji,
+        reading,
+        meanings,
+        status,
+        extraForms,
+        notes,
+        relatedKanji,
+        japaneseForms
+      };
+
+      dictionaryCache[word] = result;
+      return result;
+    } catch (e) {
+      console.error(e);
+      return {
+        kanji: word,
+        reading: "—",
+        meanings: [{ pos: [], defs: ["Definition not found"], info: [], tags: [], restrictions: [], links: [], seeAlso: [], antonyms: [] }],
+        status: [],
+        extraForms: [],
+        notes: [],
+        relatedKanji: collectKanjiFromForms([], word),
+        japaneseForms: []
+      };
+    }
+  }
+
+  // =========================================================
+  // 5. JISHO KANJI DETAILS
+  // =========================================================
+  async function fetchKanjiDetails(kanji) {
+    if (kanjiCache[kanji]) return kanjiCache[kanji];
+
+    try {
+      const jishoUrl = 'https://jisho.org/search/' + encodeURIComponent(kanji) + '%20%23kanji';
+      const htmlText = await fetchWithProxy(jishoUrl, false);
+      const doc = new DOMParser().parseFromString(htmlText, "text/html");
+
+      const extractText = (selector) => {
+        const el = doc.querySelector(selector);
+        return el ? el.textContent.replace(/\s+/g, ' ').trim() : '';
+      };
+
+      const grade = extractText('.grade') || 'Grade Unlisted';
+      const jlpt = extractText('.jlpt') || 'JLPT Unlisted';
+      const frequency = extractText('.frequency') || '';
+      const mainMeaning = extractText('.kanji-details__main-meanings') || extractText('.kanji-details__main-meanings-list') || '';
+
+      const kun = Array.from(doc.querySelectorAll('.kun_yomi a'))
+        .map(a => a.textContent.trim())
+        .filter(Boolean)
+        .join('、') || 'None';
+
+      const on = Array.from(doc.querySelectorAll('.on_yomi a'))
+        .map(a => a.textContent.trim())
+        .filter(Boolean)
+        .join('、') || 'None';
+
+      const compounds = [];
+      const allLis = doc.querySelectorAll('.row .span4 ul li');
+      allLis.forEach(li => {
+        if (compounds.length < 3) {
+          let text = li.textContent.replace(/\s+/g, ' ').trim();
+          if (text) {
+            text = text.replace('】', '】 - ');
+            compounds.push(text);
+          }
+        }
+      });
+
+      const result = { grade, jlpt, frequency, mainMeaning, kun, on, compounds };
+      kanjiCache[kanji] = result;
+      return result;
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  }
+
+  // =========================================================
+  // 6. RENDERERS
+  // =========================================================
+  function renderWordCard(wordData) {
+    const statusHtml = wordData.status.length
+      ? `<div class="meta-tags">${wordData.status.map(s => `<span class="meta-tag">${escapeHtml(s)}</span>`).join('')}</div>`
+      : '';
+
+    const meaningHtml = wordData.meanings.map((sense, idx) => {
+      const pos = sense.pos.length ? escapeHtml(sense.pos.join(' · ')) : 'Meaning';
+      const defs = escapeHtml(sense.defs.join('; '));
+
+      const senseNotes = uniq([
+        ...sense.info,
+        ...sense.tags,
+        ...sense.restrictions,
+        ...sense.seeAlso.map(x => `see also: ${x}`),
+        ...sense.antonyms.map(x => `antonym: ${x}`)
+      ]);
+
+      const linksHtml = sense.links.length
+        ? `<div class="inline-list" style="margin-top:0.5rem;">${sense.links.map(l => `<span class="inline-chip">${escapeHtml(l.text || 'link')}</span>`).join('')}</div>`
+        : '';
+
+      return `
+        <div class="sense">
+          <div class="sense-pos">${idx + 1}. ${pos}</div>
+          <div class="sense-defs">${defs}</div>
+          ${senseNotes.length ? `<div class="sense-notes">${escapeHtml(senseNotes.join(' · '))}</div>` : ''}
+          ${linksHtml}
+        </div>`;
+    }).join('');
+
+    const formsHtml = wordData.extraForms.length
+      ? `<div class="detail-section">
+           <div class="detail-title">Other forms</div>
+           <div class="inline-list">
+             ${wordData.extraForms.map(f => `<span class="inline-chip">${escapeHtml(f)}</span>`).join('')}
+           </div>
+         </div>`
+      : '';
+
+    const notesHtml = wordData.notes.length
+      ? `<div class="detail-section">
+           <div class="detail-title">Notes</div>
+           <div class="inline-list">
+             ${wordData.notes.map(n => `<span class="inline-chip">${escapeHtml(n)}</span>`).join('')}
+           </div>
+         </div>`
+      : '';
+
+    return `
+      <div class="main-card">
+        <div class="reading">${escapeHtml(wordData.reading)}</div>
+        <div class="kanji">${escapeHtml(wordData.kanji)}</div>
+        ${statusHtml}
+        <div class="detail-grid" style="margin-top:1.25rem;">
+          <div class="detail-section">
+            <div class="detail-title">Meaning</div>
+            ${meaningHtml}
+          </div>
+          ${formsHtml}
+          ${notesHtml}
+        </div>
+      </div>`;
+  }
+
+  function renderKanjiCard(kChar, kData) {
+    if (!kData) return '';
+
+    const compHtml = kData.compounds.length > 0
+      ? kData.compounds.map(c => `<li style="margin-bottom:8px;">${escapeHtml(c)}</li>`).join('')
+      : '<li>No common compounds</li>';
+
+    return `
+      <div class="k-card">
+        <div class="k-char-title">${escapeHtml(kChar)}</div>
+        <div class="k-stat">${escapeHtml(kData.grade)} | ${escapeHtml(kData.jlpt)}</div>
+        <div class="k-freq">${escapeHtml(kData.frequency)}</div>
+
+        ${kData.mainMeaning ? `
+          <div class="k-section">
+            <span class="k-label">Meaning:</span>
+            <span class="k-value">${escapeHtml(kData.mainMeaning)}</span>
+          </div>` : ''}
+
+        <div class="k-section">
+          <span class="k-label">Kun:</span>
+          <span class="k-value">${escapeHtml(kData.kun)}</span>
+        </div>
+
+        <div class="k-section">
+          <span class="k-label">On:</span>
+          <span class="k-value">${escapeHtml(kData.on)}</span>
+        </div>
+
+        <div class="k-section" style="margin-top:1.5rem;">
+          <span class="k-label">Compounds:</span>
+          <ul class="compounds-list">
+            ${compHtml}
+          </ul>
+        </div>
+      </div>`;
+  }
+
+  // =========================================================
+  // 7. FOREGROUND RENDERER
+  // =========================================================
+  async function refreshForeground() {
+    const fg = document.getElementById('foreground');
+    const thisRefresh = ++refreshCounter;
+
+    if (!hasRenderedOnce && !fg.innerHTML.trim()) {
+      fg.innerHTML = '<div class="main-card"><div class="meaning" style="color:#666;">Searching Jisho...</div></div>';
+    }
+
+    try {
+      if (!rawWordList.length) {
+        if (!hasRenderedOnce) {
+          fg.innerHTML = `
+            <div class="main-card">
+              <div class="meaning" style="color:#aaa;">No words available</div>
+            </div>`;
+        }
+        return;
+      }
+
+      const word = rawWordList[Math.floor(Math.random() * rawWordList.length)] || '';
+      const wordData = await fetchJishoWord(word);
+
+      const kanjiList = uniq(wordData.relatedKanji);
+      const kanjiPromises = kanjiList.map(k => fetchKanjiDetails(k));
+      const kanjiResults = await Promise.all(kanjiPromises);
+
+      if (thisRefresh !== refreshCounter) return;
+
+      let html = renderWordCard(wordData);
+
+      if (kanjiList.length > 0) {
+        html += `<div class="kanji-cards-container">`;
+        kanjiResults.forEach((kData, idx) => {
+          html += renderKanjiCard(kanjiList[idx], kData);
+        });
+        html += `</div>`;
+      }
+
+      fg.innerHTML = html;
+      hasRenderedOnce = true;
+    } catch (err) {
+      console.error("Foreground render failed:", err);
+
+      if (!hasRenderedOnce) {
+        fg.innerHTML = `
+          <div class="main-card">
+            <div class="reading">Error</div>
+            <div class="meaning">Could not load Jisho data</div>
+          </div>`;
+      }
+    }
+  }
+
+  // Start the engine
+  init();
+</script>
+</body>
+</html>
