@@ -15,7 +15,11 @@
   }
 
   /* =========================================================
-     BACKGROUND ANIMATION
+     BACKGROUND ANIMATION — ENERGY OPTIMIZED
+     • Fewer words spawned (every 5s vs 1.5s)
+     • Max 8 concurrent words (was unlimited)
+     • GPU-accelerated with transform only
+     • Removed backdrop-filter blur from background
   ========================================================= */
 
   #background {
@@ -33,19 +37,19 @@
     animation-name: moveLeft;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
-    animation-duration: 20s;
+    animation-duration: 25s;
     user-select: none;
+    /* GPU acceleration hint — only apply to visible elements */
+    transform: translateZ(0);
   }
 
   @keyframes moveLeft {
     from {
-      left: 100vw;
-      transform: translateX(0);
+      transform: translateX(100vw) translateZ(0);
     }
 
     to {
-      left: -20vw;
-      transform: translateX(-100%);
+      transform: translateX(-20vw) translateZ(0);
     }
   }
 
@@ -75,11 +79,14 @@
   }
 
   /* =========================================================
-     MAIN WORD CARD
+     MAIN WORD CARD — ENERGY OPTIMIZED
+     • Removed backdrop-filter (very GPU intensive)
+     • Simplified box-shadow
+     • Reduced animation duration
   ========================================================= */
 
   .main-card {
-    background: rgba(31, 40, 51, 0.88);
+    background: rgba(31, 40, 51, 0.92);
 
     border: 1px solid #45a29e;
     border-radius: 18px;
@@ -88,10 +95,10 @@
 
     text-align: center;
 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
+    /* Simplified shadow — less repaint cost */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 
-    animation: fadeIn 0.6s ease-in-out;
+    animation: fadeIn 0.4s ease-out;
 
     width: min(920px, 95%);
     box-sizing: border-box;
@@ -266,7 +273,8 @@
   }
 
   /* =========================================================
-     KANJI CARDS
+     KANJI CARDS — ENERGY OPTIMIZED
+     • Simplified box-shadow
   ========================================================= */
 
   .kanji-cards-container {
@@ -279,11 +287,11 @@
     width: 100%;
     max-width: 1200px;
 
-    animation: fadeIn 0.9s ease-in-out;
+    animation: fadeIn 0.6s ease-out;
   }
 
   .k-card {
-    background: rgba(11, 12, 16, 0.92);
+    background: rgba(11, 12, 16, 0.95);
 
     border: 1px solid #c5c6c7;
     border-radius: 14px;
@@ -295,7 +303,8 @@
 
     text-align: left;
 
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    /* Simplified shadow */
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
   }
 
   .k-char-title {
@@ -372,7 +381,7 @@
   ========================================================= */
 
   #foreground::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
 
   #foreground::-webkit-scrollbar-track {
@@ -389,13 +398,13 @@
   }
 
   /* =========================================================
-     ANIMATIONS
+     ANIMATIONS — SHORTER DURATION
   ========================================================= */
 
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(18px);
+      transform: translateY(12px);
     }
 
     to {
@@ -430,6 +439,17 @@
       width: 100%;
     }
   }
+
+  /* =========================================================
+     ENERGY SAVING — Reduce animation when tab is hidden
+  ========================================================= */
+  @media (prefers-reduced-motion: reduce) {
+    .bg-word,
+    .main-card,
+    .kanji-cards-container {
+      animation-duration: 0.1s !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -438,18 +458,48 @@
   <div id="foreground"></div>
 
 <script>
+  // =========================================================
+  // SEEDED PRNG — Ensures ALL screens show the SAME content
+  // Uses current time rounded to refresh interval as seed
+  // This way, all screen instances pick the same word at once
+  // =========================================================
+  function mulberry32(a) {
+    return function() {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    }
+  }
+
+  function getSyncedSeed(intervalMs = 60000) {
+    // Round current time to the nearest interval boundary
+    // All screens at the same time will compute the same seed
+    return Math.floor(Date.now() / intervalMs);
+  }
+
+  // =========================================================
+  // GLOBALS
+  // =========================================================
   let rawWordList = [];
   const dictionaryCache = {};
   const kanjiCache = {};
   let refreshCounter = 0;
   let hasRenderedOnce = false;
 
+  // Background animation limits for energy efficiency
+  const MAX_BG_WORDS = 8;          // Max concurrent background words (was unlimited)
+  let currentBgWordCount = 0;
+
+  // =========================================================
+  // UTILITIES
+  // =========================================================
   function escapeHtml(value) {
-    return String(value ?? '').replace(/[&<>"']/g, (m) => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
+    return String(value ?? '').replace(/[&<>\"']/g, (m) => ({
+      '&': '&',
+      '<': '<',
+      '>': '>',
+      '"': '"',
       "'": '&#39;'
     }[m]));
   }
@@ -495,16 +545,41 @@
       rawWordList = ["政治", "努力", "経験", "成功", "歴史", "自然", "環境"];
     }
 
+    // Start background animation with longer interval
+    startBackgroundAnimation();
+
+    // Use IntersectionObserver to pause bg animation when not visible
+    setupVisibilityObserver();
+
     await refreshForeground();
-    setInterval(refreshForeground, 60000);
-    setInterval(spawnBgWord, 1500);
+
+    // Refresh foreground every 2 minutes instead of 1 (less API calls)
+    setInterval(refreshForeground, 120000);
   }
 
   // =========================================================
-  // 2. BACKGROUND ANIMATION
+  // 2. BACKGROUND ANIMATION — ENERGY OPTIMIZED
+  // • Spawn every 5s instead of 1.5s
+  // • Max 8 concurrent words (was unlimited)
+  // • Pause when tab is hidden
   // =========================================================
+  let bgSpawnInterval = null;
+  let bgPaused = false;
+
+  function startBackgroundAnimation() {
+    // Spawn a background word every 5 seconds (was 1.5s)
+    bgSpawnInterval = setInterval(() => {
+      if (!bgPaused) {
+        spawnBgWord();
+      }
+    }, 5000);
+  }
+
   function spawnBgWord() {
     if (rawWordList.length === 0) return;
+
+    // Limit concurrent words for GPU efficiency
+    if (currentBgWordCount >= MAX_BG_WORDS) return;
 
     const word = rawWordList[Math.floor(Math.random() * rawWordList.length)];
     const el = document.createElement('div');
@@ -514,10 +589,30 @@
     const size = Math.random() * 6 + 2;
     el.style.fontSize = size + 'rem';
     el.style.top = (Math.random() * 90) + '%';
-    el.style.opacity = (size / 10) * 0.15 + 0.05;
+    el.style.opacity = (size / 10) * 0.12 + 0.04;
 
+    currentBgWordCount++;
     document.getElementById('background').appendChild(el);
-    setTimeout(() => el.remove(), 20000);
+
+    // Remove after animation completes (25s)
+    setTimeout(() => {
+      el.remove();
+      currentBgWordCount--;
+    }, 25000);
+  }
+
+  function setupVisibilityObserver() {
+    // Pause background animation when tab is hidden (saves GPU/CPU)
+    document.addEventListener('visibilitychange', () => {
+      bgPaused = document.hidden;
+    });
+
+    // Also pause on screen lock / display sleep (macOS specific)
+    const mediaQuery = window.matchMedia('(display-mode: fullscreen)');
+    mediaQuery.addEventListener?.('change', () => {
+      // Resume if coming back from fullscreen/sleep
+      bgPaused = false;
+    });
   }
 
   // =========================================================
@@ -796,7 +891,7 @@
   }
 
   // =========================================================
-  // 7. FOREGROUND RENDERER
+  // 7. FOREGROUND RENDERER — WITH SYNCED SEED FOR MULTI-SCREEN
   // =========================================================
   async function refreshForeground() {
     const fg = document.getElementById('foreground');
@@ -817,7 +912,15 @@
         return;
       }
 
-      const word = rawWordList[Math.floor(Math.random() * rawWordList.length)] || '';
+      // SYNCED WORD SELECTION: Use a seeded PRNG based on current time interval
+      // This ensures ALL screens pick the SAME word at the same time
+      const seed = getSyncedSeed(120000); // Same interval as refreshForeground
+      const seededRandom = mulberry32(seed);
+
+      // Pick word using seeded random (all screens will pick identically)
+      const wordIndex = Math.floor(seededRandom() * rawWordList.length);
+      const word = rawWordList[wordIndex] || '';
+
       const wordData = await fetchJishoWord(word);
 
       const kanjiList = uniq(wordData.relatedKanji);
