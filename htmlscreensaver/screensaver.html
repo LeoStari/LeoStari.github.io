@@ -59,25 +59,41 @@
 
   #clock-date {
     position: fixed;
-    top: 1rem;
-    right: 1.5rem;
+    top: 1.2rem;
+    right: 2rem;
     z-index: 100;
 
-    font-size: 0.82rem;
-    color: rgba(197, 198, 199, 0.45);
-    letter-spacing: 0.06em;
+    font-size: 1rem;
+    color: rgba(197, 198, 199, 0.5);
+    letter-spacing: 0.08em;
 
     text-align: right;
-    line-height: 1.5;
+    line-height: 1.6;
 
     pointer-events: none;
     user-select: none;
   }
 
   #clock-date .time {
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: rgba(197, 198, 199, 0.6);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: rgba(197, 198, 199, 0.65);
+  }
+
+  /* =========================================================
+     MOBILE CLOCK / DATE
+  ========================================================= */
+
+  @media (max-width: 768px) {
+    #clock-date {
+      font-size: 0.9rem;
+      top: 0.8rem;
+      right: 1rem;
+    }
+
+    #clock-date .time {
+      font-size: 1.15rem;
+    }
   }
 
   /* =========================================================
@@ -465,16 +481,6 @@
     .k-card {
       width: 100%;
     }
-
-    #clock-date {
-      font-size: 0.72rem;
-      top: 0.6rem;
-      right: 1rem;
-    }
-
-    #clock-date .time {
-      font-size: 0.9rem;
-    }
   }
 
   /* =========================================================
@@ -515,23 +521,22 @@
   let currentBgWordCount = 0;
 
   // =========================================================
-  // CLOCK / DATE
+  // CLOCK / DATE (refreshes every 30 seconds)
   // =========================================================
   function updateClock() {
     const now = new Date();
 
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
-    const seconds = String(now.getSeconds()).padStart(2, '0');
-    document.getElementById('clock-time').textContent = `${hours}:${minutes}:${seconds}`;
+    document.getElementById('clock-time').textContent = `${hours}:${minutes}`;
 
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     document.getElementById('clock-date-text').textContent = now.toLocaleDateString('en-US', options);
   }
 
-  // Update immediately, then every second
+  // Update immediately, then every 30 seconds
   updateClock();
-  setInterval(updateClock, 1000);
+  setInterval(updateClock, 30000);
 
   // =========================================================
   // UTILITIES
@@ -661,37 +666,63 @@
   }
 
   // =========================================================
-  // 3. MULTI-PROXY FETCHING SYSTEM
+  // 3. MULTI-PROXY FETCHING SYSTEM (with per-request timeout)
   // =========================================================
+  const PROXY_TIMEOUT_MS = 12000;  // 12s timeout per proxy request
+
+  async function fetchWithTimeout(url, signal) {
+    return await fetch(url, { signal });
+  }
+
+  async function tryProxy(proxyUrl, targetUrl, isJson) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), PROXY_TIMEOUT_MS);
+
+    try {
+      const res = await fetchWithTimeout(proxyUrl + encodeURIComponent(targetUrl), controller.signal);
+      clearTimeout(timeoutId);
+
+      if (!res.ok) {
+        console.warn(`Proxy ${proxyUrl.split('/')[2]} returned HTTP ${res.status}`);
+        return null;
+      }
+
+      const text = await res.text();
+
+      if (isJson) {
+        const parsed = JSON.parse(text);
+        return parsed;
+      }
+
+      return text;
+    } catch (e) {
+      clearTimeout(timeoutId);
+      if (e.name === 'AbortError') {
+        console.warn(`Proxy ${proxyUrl.split('/')[2]} timed out after ${PROXY_TIMEOUT_MS}ms`);
+      } else {
+        console.warn(`Proxy ${proxyUrl.split('/')[2]} failed: ${e.message}`);
+      }
+      return null;
+    }
+  }
+
   async function fetchWithProxy(targetUrl, isJson = true) {
     const proxies = [
       'https://api.allorigins.win/raw?url=',
-      'https://api.codetabs.com/v1/proxy?quest=',
-      'https://corsproxy.io/?'
+      'https://corsproxy.io/?',
+      'https://api.codetabs.com/v1/proxy?quest='
     ];
 
     let lastError = new Error("All proxies failed to connect to Jisho.");
 
     for (let i = 0; i < proxies.length; i++) {
-      try {
-        const res = await fetch(proxies[i] + encodeURIComponent(targetUrl));
-        if (!res.ok) continue;
+      const result = await tryProxy(proxies[i], targetUrl, isJson);
 
-        const text = await res.text();
-
-        if (isJson) {
-          try {
-            return JSON.parse(text);
-          } catch {
-            continue;
-          }
-        }
-
-        return text;
-      } catch (e) {
-        console.warn(`Proxy ${proxies[i]} failed, trying the next one...`);
-        lastError = e;
+      if (result !== null) {
+        return result;
       }
+
+      lastError = new Error(`All ${proxies.length} proxies failed for ${targetUrl}`);
     }
 
     throw lastError;
@@ -700,7 +731,7 @@
   // =========================================================
   // 4. JISHO WORD DETAILS (with retry on network failure)
   // =========================================================
-  async function fetchJishoWord(word, retryCount = 2) {
+  async function fetchJishoWord(word, retryCount = 3) {
     if (dictionaryCache[word]) return dictionaryCache[word];
 
     let lastError;
@@ -721,6 +752,8 @@
         if (!entry) {
           throw new Error('JISHO_NO_ENTRY');
         }
+
+        console.log(`✓ Fetched "${word}" successfully on attempt ${attempt + 1}`);
 
         const japaneseForms = entry.japanese || [];
         const senses = entry.senses || [];
@@ -779,6 +812,7 @@
         dictionaryCache[word] = result;
         return result;
 
+
       } catch (e) {
         lastError = e;
 
@@ -802,15 +836,15 @@
 
         // Network error — retry with a short delay
         if (attempt < retryCount) {
-          const delay = 1500 * (attempt + 1);
-          console.warn(`fetchJishoWord("${word}") attempt ${attempt + 1} failed. Retrying in ${delay}ms...`);
+          const delay = 2000 * (attempt + 1);
+          console.warn(`⏳ fetchJishoWord("${word}") attempt ${attempt + 1} failed (${e.message}). Retrying in ${delay}ms...`);
           await new Promise(r => setTimeout(r, delay));
         }
       }
     }
 
     // All retries exhausted — return fallback
-    console.error(`fetchJishoWord("${word}") failed after ${retryCount} retries:`, lastError);
+    console.error(`✗ fetchJishoWord("${word}") failed after ${retryCount + 1} attempts:`, lastError?.message || lastError);
     return {
       kanji: word,
       reading: "—",
