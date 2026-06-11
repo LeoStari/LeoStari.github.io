@@ -54,6 +54,33 @@
   }
 
   /* =========================================================
+     CLOCK / DATE — Top-right corner
+  ========================================================= */
+
+  #clock-date {
+    position: fixed;
+    top: 1rem;
+    right: 1.5rem;
+    z-index: 100;
+
+    font-size: 0.82rem;
+    color: rgba(197, 198, 199, 0.45);
+    letter-spacing: 0.06em;
+
+    text-align: right;
+    line-height: 1.5;
+
+    pointer-events: none;
+    user-select: none;
+  }
+
+  #clock-date .time {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: rgba(197, 198, 199, 0.6);
+  }
+
+  /* =========================================================
      FOREGROUND LAYOUT
   ========================================================= */
 
@@ -438,6 +465,16 @@
     .k-card {
       width: 100%;
     }
+
+    #clock-date {
+      font-size: 0.72rem;
+      top: 0.6rem;
+      right: 1rem;
+    }
+
+    #clock-date .time {
+      font-size: 0.9rem;
+    }
   }
 
   /* =========================================================
@@ -457,6 +494,12 @@
   <div id="background"></div>
   <div id="foreground"></div>
 
+  <!-- Clock / Date display -->
+  <div id="clock-date">
+    <div class="time" id="clock-time">--:--:--</div>
+    <div id="clock-date-text">---</div>
+  </div>
+
 <script>
   // =========================================================
   // GLOBALS
@@ -470,6 +513,25 @@
   // Background animation limits for energy efficiency
   const MAX_BG_WORDS = 8;          // Max concurrent background words (was unlimited)
   let currentBgWordCount = 0;
+
+  // =========================================================
+  // CLOCK / DATE
+  // =========================================================
+  function updateClock() {
+    const now = new Date();
+
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    document.getElementById('clock-time').textContent = `${hours}:${minutes}:${seconds}`;
+
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    document.getElementById('clock-date-text').textContent = now.toLocaleDateString('en-US', options);
+  }
+
+  // Update immediately, then every second
+  updateClock();
+  setInterval(updateClock, 1000);
 
   // =========================================================
   // UTILITIES
@@ -608,6 +670,8 @@
       'https://corsproxy.io/?'
     ];
 
+    let lastError = new Error("All proxies failed to connect to Jisho.");
+
     for (let i = 0; i < proxies.length; i++) {
       try {
         const res = await fetch(proxies[i] + encodeURIComponent(targetUrl));
@@ -626,94 +690,137 @@
         return text;
       } catch (e) {
         console.warn(`Proxy ${proxies[i]} failed, trying the next one...`);
+        lastError = e;
       }
     }
 
-    throw new Error("All proxies failed to connect to Jisho.");
+    throw lastError;
   }
 
   // =========================================================
-  // 4. JISHO WORD DETAILS
+  // 4. JISHO WORD DETAILS (with retry on network failure)
   // =========================================================
-  async function fetchJishoWord(word) {
+  async function fetchJishoWord(word, retryCount = 2) {
     if (dictionaryCache[word]) return dictionaryCache[word];
 
-    try {
-      const apiUrl = 'https://jisho.org/api/v1/search/words?keyword=' + encodeURIComponent(word);
-      const jisho = await fetchWithProxy(apiUrl, true);
-      const entry = jisho?.data?.[0];
+    let lastError;
 
-      if (!entry) throw new Error('No word entry found.');
+    for (let attempt = 0; attempt <= retryCount; attempt++) {
+      try {
+        const apiUrl = 'https://jisho.org/api/v1/search/words?keyword=' + encodeURIComponent(word);
+        const jisho = await fetchWithProxy(apiUrl, true);
 
-      const japaneseForms = entry.japanese || [];
-      const senses = entry.senses || [];
+        // Check that we got valid JSON data back from Jisho
+        if (!jisho || !Array.isArray(jisho.data) || jisho.data.length === 0) {
+          // Word truly not found in Jisho (not a network error) — no point retrying
+          throw new Error('JISHO_NOT_FOUND');
+        }
 
-      const kanji = japaneseForms.find(j => j.word)?.word || word;
-      const reading = japaneseForms.find(j => j.reading)?.reading || japaneseForms[0]?.reading || '';
+        const entry = jisho.data[0];
 
-      const status = [];
-      if (entry.is_common) status.push('common word');
+        if (!entry) {
+          throw new Error('JISHO_NO_ENTRY');
+        }
 
-      const jlptValue = Array.isArray(entry.jlpt) ? entry.jlpt[0] : entry.jlpt;
-      if (jlptValue) status.push(`jlpt n${jlptValue}`);
+        const japaneseForms = entry.japanese || [];
+        const senses = entry.senses || [];
 
-      if (Array.isArray(entry.tags) && entry.tags.length) {
-        status.push(...entry.tags);
+        const kanji = japaneseForms.find(j => j.word)?.word || word;
+        const reading = japaneseForms.find(j => j.reading)?.reading || japaneseForms[0]?.reading || '';
+
+        const status = [];
+        if (entry.is_common) status.push('common word');
+
+        const jlptValue = Array.isArray(entry.jlpt) ? entry.jlpt[0] : entry.jlpt;
+        if (jlptValue) status.push(`jlpt n${jlptValue}`);
+
+        if (Array.isArray(entry.tags) && entry.tags.length) {
+          status.push(...entry.tags);
+        }
+
+        const meanings = senses.map(sense => ({
+          pos: uniq(sense.parts_of_speech || []),
+          defs: sense.english_definitions || [],
+          info: uniq(sense.info || []),
+          tags: uniq(sense.tags || []),
+          restrictions: uniq(sense.restrictions || []),
+          links: sense.links || [],
+          seeAlso: uniq(sense.see_also || []),
+          antonyms: uniq(sense.antonyms || [])
+        }));
+
+        const extraForms = uniq(
+          japaneseForms
+            .map(formatJapaneseForm)
+            .filter(Boolean)
+        );
+
+        const notes = uniq(
+          senses.flatMap(s => [
+            ...(s.info || []),
+            ...(s.tags || []),
+            ...(s.restrictions || [])
+          ])
+        );
+
+        const relatedKanji = collectKanjiFromForms(japaneseForms, word);
+
+        const result = {
+          kanji,
+          reading,
+          meanings,
+          status,
+          extraForms,
+          notes,
+          relatedKanji,
+          japaneseForms
+        };
+
+        dictionaryCache[word] = result;
+        return result;
+
+      } catch (e) {
+        lastError = e;
+
+        // If the word is truly not in Jisho, no point retrying
+        if (e.message === 'JISHO_NOT_FOUND' || e.message === 'JISHO_NO_ENTRY') {
+          const msg = e.message === 'JISHO_NOT_FOUND'
+            ? `${word} — Not found in Jisho`
+            : `${word} — No entry returned`;
+          console.warn(msg);
+          return {
+            kanji: word,
+            reading: "—",
+            meanings: [{ pos: [], defs: [msg], info: [], tags: [], restrictions: [], links: [], seeAlso: [], antonyms: [] }],
+            status: [],
+            extraForms: [],
+            notes: [],
+            relatedKanji: collectKanjiFromForms([], word),
+            japaneseForms: []
+          };
+        }
+
+        // Network error — retry with a short delay
+        if (attempt < retryCount) {
+          const delay = 1500 * (attempt + 1);
+          console.warn(`fetchJishoWord("${word}") attempt ${attempt + 1} failed. Retrying in ${delay}ms...`);
+          await new Promise(r => setTimeout(r, delay));
+        }
       }
-
-      const meanings = senses.map(sense => ({
-        pos: uniq(sense.parts_of_speech || []),
-        defs: sense.english_definitions || [],
-        info: uniq(sense.info || []),
-        tags: uniq(sense.tags || []),
-        restrictions: uniq(sense.restrictions || []),
-        links: sense.links || [],
-        seeAlso: uniq(sense.see_also || []),
-        antonyms: uniq(sense.antonyms || [])
-      }));
-
-      const extraForms = uniq(
-        japaneseForms
-          .map(formatJapaneseForm)
-          .filter(Boolean)
-      );
-
-      const notes = uniq(
-        senses.flatMap(s => [
-          ...(s.info || []),
-          ...(s.tags || []),
-          ...(s.restrictions || [])
-        ])
-      );
-
-      const relatedKanji = collectKanjiFromForms(japaneseForms, word);
-
-      const result = {
-        kanji,
-        reading,
-        meanings,
-        status,
-        extraForms,
-        notes,
-        relatedKanji,
-        japaneseForms
-      };
-
-      dictionaryCache[word] = result;
-      return result;
-    } catch (e) {
-      console.error(e);
-      return {
-        kanji: word,
-        reading: "—",
-        meanings: [{ pos: [], defs: ["Definition not found"], info: [], tags: [], restrictions: [], links: [], seeAlso: [], antonyms: [] }],
-        status: [],
-        extraForms: [],
-        notes: [],
-        relatedKanji: collectKanjiFromForms([], word),
-        japaneseForms: []
-      };
     }
+
+    // All retries exhausted — return fallback
+    console.error(`fetchJishoWord("${word}") failed after ${retryCount} retries:`, lastError);
+    return {
+      kanji: word,
+      reading: "—",
+      meanings: [{ pos: [], defs: ["Definition not found (network error)"], info: [], tags: [], restrictions: [], links: [], seeAlso: [], antonyms: [] }],
+      status: [],
+      extraForms: [],
+      notes: [],
+      relatedKanji: collectKanjiFromForms([], word),
+      japaneseForms: []
+    };
   }
 
   // =========================================================
