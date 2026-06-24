@@ -16,12 +16,7 @@
 
   /* =========================================================
      BACKGROUND ANIMATION — ENERGY OPTIMIZED
-     • Fewer words spawned (every 5s vs 1.5s)
-     • Max 8 concurrent words (was unlimited)
-     • GPU-accelerated with transform only
-     • Removed backdrop-filter blur from background
   ========================================================= */
-
   #background {
     position: absolute;
     inset: 0;
@@ -39,37 +34,27 @@
     animation-fill-mode: forwards;
     animation-duration: 25s;
     user-select: none;
-    /* GPU acceleration hint — only apply to visible elements */
     transform: translateZ(0);
   }
 
   @keyframes moveLeft {
-    from {
-      transform: translateX(100vw) translateZ(0);
-    }
-
-    to {
-      transform: translateX(-20vw) translateZ(0);
-    }
+    from { transform: translateX(100vw) translateZ(0); }
+    to { transform: translateX(-20vw) translateZ(0); }
   }
 
   /* =========================================================
      CLOCK / DATE — Top-right corner
   ========================================================= */
-
   #clock-date {
     position: fixed;
     top: 1.2rem;
     right: 2rem;
     z-index: 100;
-
     font-size: 1rem;
     color: rgba(197, 198, 199, 0.5);
     letter-spacing: 0.08em;
-
     text-align: right;
     line-height: 1.6;
-
     pointer-events: none;
     user-select: none;
   }
@@ -80,79 +65,42 @@
     color: rgba(197, 198, 199, 0.65);
   }
 
-  /* =========================================================
-     MOBILE CLOCK / DATE
-  ========================================================= */
-
   @media (max-width: 768px) {
-    #clock-date {
-      font-size: 0.9rem;
-      top: 0.8rem;
-      right: 1rem;
-    }
-
-    #clock-date .time {
-      font-size: 1.15rem;
-    }
+    #clock-date { font-size: 0.9rem; top: 0.8rem; right: 1rem; }
+    #clock-date .time { font-size: 1.15rem; }
   }
 
   /* =========================================================
      FOREGROUND LAYOUT
   ========================================================= */
-
   #foreground {
     position: relative;
     z-index: 10;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-
     gap: 2rem;
-
     width: 100%;
     height: 100%;
-
     box-sizing: border-box;
-
     padding: 2rem;
     padding-bottom: 4rem;
-
     overflow-y: auto;
   }
 
-  /* =========================================================
-     MAIN WORD CARD — ENERGY OPTIMIZED
-     • Removed backdrop-filter (very GPU intensive)
-     • Simplified box-shadow
-     • Reduced animation duration
-  ========================================================= */
-
   .main-card {
     background: rgba(31, 40, 51, 0.92);
-
     border: 1px solid #45a29e;
     border-radius: 18px;
-
     padding: 2rem 2.5rem;
-
     text-align: center;
-
-    /* Simplified shadow — less repaint cost */
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-
     animation: fadeIn 0.4s ease-out;
-
     width: min(920px, 95%);
     box-sizing: border-box;
   }
 
-  .reading {
-    font-size: 1.5rem;
-    color: #a0a0a0;
-    margin-bottom: 0.3rem;
-  }
-
+  .reading { font-size: 1.5rem; color: #a0a0a0; margin-bottom: 0.3rem; }
   .kanji {
     font-size: clamp(3rem, 7vw, 5rem);
     font-weight: bold;
@@ -161,337 +109,106 @@
     color: #ffffff;
     line-height: 1.1;
   }
-
-  .meaning {
-    font-size: 1.4rem;
-    color: #66fcf1;
-    margin-top: 1rem;
-    line-height: 1.5;
-  }
+  .meaning { font-size: 1.4rem; color: #66fcf1; margin-top: 1rem; line-height: 1.5; }
 
   /* =========================================================
-     META TAGS
+     META TAGS & DETAILS
   ========================================================= */
-
   .meta-tags {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    gap: 0.5rem;
-
-    margin-top: 1rem;
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 0.5rem; margin-top: 1rem;
   }
 
   .meta-tag {
-    display: inline-flex;
-    align-items: center;
-
+    display: inline-flex; align-items: center;
     border: 1px solid rgba(69, 162, 158, 0.7);
     background: rgba(69, 162, 158, 0.15);
-
-    color: #c5c6c7;
-
-    border-radius: 999px;
-
-    padding: 0.3rem 0.75rem;
-
-    font-size: 0.8rem;
-    line-height: 1.2;
-
-    white-space: nowrap;
+    color: #c5c6c7; border-radius: 999px;
+    padding: 0.3rem 0.75rem; font-size: 0.8rem;
+    line-height: 1.2; white-space: nowrap;
   }
 
-  /* =========================================================
-     DETAIL SECTIONS
-  ========================================================= */
-
   .detail-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-
-    gap: 1rem;
-
-    margin-top: 1.4rem;
-    width: 100%;
+    display: grid; grid-template-columns: 1fr;
+    gap: 1rem; margin-top: 1.4rem; width: 100%;
   }
 
   .detail-section {
     background: rgba(11, 12, 16, 0.4);
-
     border: 1px solid rgba(197, 198, 199, 0.2);
-    border-radius: 12px;
-
-    padding: 1rem 1.1rem;
-
+    border-radius: 12px; padding: 1rem 1.1rem;
     text-align: left;
   }
 
   .detail-title {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-
-    color: #45a29e;
-
-    font-weight: 700;
-
-    margin-bottom: 0.8rem;
+    font-size: 0.8rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #45a29e;
+    font-weight: 700; margin-bottom: 0.8rem;
   }
-
-  /* =========================================================
-     SENSE / MEANING BLOCKS
-  ========================================================= */
 
   .sense {
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-
+    padding-bottom: 1rem; margin-bottom: 1rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
+  .sense:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .sense-pos { color: #66fcf1; font-weight: 700; margin-bottom: 0.35rem; line-height: 1.4; }
+  .sense-defs { color: #ffffff; line-height: 1.6; font-size: 1rem; }
+  .sense-notes { margin-top: 0.5rem; color: #a0a0a0; font-size: 0.92rem; line-height: 1.5; }
 
-  .sense:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-
-  .sense-pos {
-    color: #66fcf1;
-    font-weight: 700;
-    margin-bottom: 0.35rem;
-    line-height: 1.4;
-  }
-
-  .sense-defs {
-    color: #ffffff;
-    line-height: 1.6;
-    font-size: 1rem;
-  }
-
-  .sense-notes {
-    margin-top: 0.5rem;
-
-    color: #a0a0a0;
-
-    font-size: 0.92rem;
-    line-height: 1.5;
-  }
-
-  /* =========================================================
-     INLINE CHIPS / LISTS
-  ========================================================= */
-
-  .inline-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-  }
-
+  .inline-list { display: flex; flex-wrap: wrap; gap: 0.45rem; }
   .inline-chip {
     border: 1px solid rgba(197, 198, 199, 0.25);
-    border-radius: 999px;
-
-    padding: 0.28rem 0.7rem;
-
-    font-size: 0.84rem;
-    line-height: 1.3;
-
-    color: #ffffff;
-
-    background: rgba(255, 255, 255, 0.03);
-  }
-
-  .mini-label {
-    color: #888;
-
-    font-size: 0.75rem;
-    text-transform: uppercase;
-
-    font-weight: 700;
-
-    display: block;
-
-    margin-bottom: 0.35rem;
+    border-radius: 999px; padding: 0.28rem 0.7rem;
+    font-size: 0.84rem; line-height: 1.3;
+    color: #ffffff; background: rgba(255, 255, 255, 0.03);
   }
 
   /* =========================================================
-     KANJI CARDS — ENERGY OPTIMIZED
-     • Simplified box-shadow
+     KANJI CARDS
   ========================================================= */
-
   .kanji-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    gap: 1.5rem;
-
-    width: 100%;
-    max-width: 1200px;
-
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 1.5rem; width: 100%; max-width: 1200px;
     animation: fadeIn 0.6s ease-out;
   }
 
   .k-card {
     background: rgba(11, 12, 16, 0.95);
-
-    border: 1px solid #c5c6c7;
-    border-radius: 14px;
-
-    padding: 1.5rem;
-
-    width: min(320px, 95vw);
-    box-sizing: border-box;
-
-    text-align: left;
-
-    /* Simplified shadow */
+    border: 1px solid #c5c6c7; border-radius: 14px;
+    padding: 1.5rem; width: min(320px, 95vw);
+    box-sizing: border-box; text-align: left;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
   }
 
-  .k-char-title {
-    font-size: 3.5rem;
-    font-weight: bold;
+  .k-char-title { font-size: 3.5rem; font-weight: bold; color: #ffffff; text-align: center; margin-bottom: 0.4rem; line-height: 1.1; }
+  .k-stat { font-size: 0.95rem; color: #45a29e; text-align: center; font-weight: bold; margin-bottom: 0.2rem; }
+  .k-freq { font-size: 0.82rem; color: #a0a0a0; text-align: center; margin-bottom: 1.3rem; }
+  .k-section { font-size: 1rem; line-height: 1.5; margin-bottom: 0.9rem; }
+  .k-label { color: #888; font-size: 0.8rem; text-transform: uppercase; font-weight: bold; display: block; margin-bottom: 0.2rem; }
+  .k-value { color: #ffffff; font-size: 1.05rem; }
+  .compounds-list { margin: 0.5rem 0 0 0; padding-left: 1.2rem; color: #c5c6c7; font-size: 0.95rem; line-height: 1.5; }
 
-    color: #ffffff;
-
-    text-align: center;
-
-    margin-bottom: 0.4rem;
-    line-height: 1.1;
-  }
-
-  .k-stat {
-    font-size: 0.95rem;
-
-    color: #45a29e;
-
-    text-align: center;
-
-    font-weight: bold;
-
-    margin-bottom: 0.2rem;
-  }
-
-  .k-freq {
-    font-size: 0.82rem;
-
-    color: #a0a0a0;
-
-    text-align: center;
-
-    margin-bottom: 1.3rem;
-  }
-
-  .k-section {
-    font-size: 1rem;
-    line-height: 1.5;
-
-    margin-bottom: 0.9rem;
-  }
-
-  .k-label {
-    color: #888;
-
-    font-size: 0.8rem;
-    text-transform: uppercase;
-
-    font-weight: bold;
-
-    display: block;
-
-    margin-bottom: 0.2rem;
-  }
-
-  .k-value {
-    color: #ffffff;
-    font-size: 1.05rem;
-  }
-
-  .compounds-list {
-    margin: 0.5rem 0 0 0;
-    padding-left: 1.2rem;
-
-    color: #c5c6c7;
-
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  /* =========================================================
-     SCROLLBAR
-  ========================================================= */
-
-  #foreground::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  #foreground::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.03);
-  }
-
-  #foreground::-webkit-scrollbar-thumb {
-    background: rgba(69, 162, 158, 0.45);
-    border-radius: 999px;
-  }
-
-  #foreground::-webkit-scrollbar-thumb:hover {
-    background: rgba(69, 162, 158, 0.7);
-  }
-
-  /* =========================================================
-     ANIMATIONS — SHORTER DURATION
-  ========================================================= */
+  /* SCROLLBAR & ANIMATIONS */
+  #foreground::-webkit-scrollbar { width: 8px; }
+  #foreground::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); }
+  #foreground::-webkit-scrollbar-thumb { background: rgba(69, 162, 158, 0.45); border-radius: 999px; }
+  #foreground::-webkit-scrollbar-thumb:hover { background: rgba(69, 162, 158, 0.7); }
 
   @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-
-  /* =========================================================
-     MOBILE
-  ========================================================= */
 
   @media (max-width: 768px) {
-    #foreground {
-      padding: 1rem;
-      gap: 1.2rem;
-    }
-
-    .main-card {
-      padding: 1.4rem;
-    }
-
-    .reading {
-      font-size: 1.2rem;
-    }
-
-    .meaning {
-      font-size: 1.1rem;
-    }
-
-    .k-card {
-      width: 100%;
-    }
+    #foreground { padding: 1rem; gap: 1.2rem; }
+    .main-card { padding: 1.4rem; }
+    .reading { font-size: 1.2rem; }
+    .meaning { font-size: 1.1rem; }
+    .k-card { width: 100%; }
   }
 
-  /* =========================================================
-     ENERGY SAVING — Reduce animation when tab is hidden
-  ========================================================= */
   @media (prefers-reduced-motion: reduce) {
-    .bg-word,
-    .main-card,
-    .kanji-cards-container {
-      animation-duration: 0.1s !important;
-    }
+    .bg-word, .main-card, .kanji-cards-container { animation-duration: 0.1s !important; }
   }
 </style>
 </head>
@@ -516,16 +233,11 @@
   let refreshCounter = 0;
   let hasRenderedOnce = false;
 
-  // Background animation limits for energy efficiency
-  const MAX_BG_WORDS = 8;          // Max concurrent background words (was unlimited)
+  const MAX_BG_WORDS = 8;
   let currentBgWordCount = 0;
 
-  // =========================================================
-  // CLOCK / DATE (refreshes every 30 seconds)
-  // =========================================================
   function updateClock() {
     const now = new Date();
-
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     document.getElementById('clock-time').textContent = `${hours}:${minutes}`;
@@ -534,20 +246,12 @@
     document.getElementById('clock-date-text').textContent = now.toLocaleDateString('en-US', options);
   }
 
-  // Update immediately, then every 30 seconds
   updateClock();
   setInterval(updateClock, 30000);
 
-  // =========================================================
-  // UTILITIES
-  // =========================================================
   function escapeHtml(value) {
     return String(value ?? '').replace(/[&<>\"']/g, (m) => ({
-      '&': '&',
-      '<': '<',
-      '>': '>',
-      '"': '"',
-      "'": '&#39;'
+      '&': '&', '<': '<', '>': '>', '"': '"', "'": '&#39;'
     }[m]));
   }
 
@@ -558,7 +262,6 @@
   function formatJapaneseForm(j) {
     const word = (j?.word || '').trim();
     const reading = (j?.reading || '').trim();
-
     if (word && reading && word !== reading) {
       return `${word} 【${reading}】`;
     }
@@ -567,24 +270,18 @@
 
   function collectKanjiFromForms(forms, fallbackWord = '') {
     const chars = new Set();
-
     (forms || []).forEach(form => {
       const source = form?.word || '';
       const matches = source.match(/[\u4e00-\u9faf]/g) || [];
       matches.forEach(ch => chars.add(ch));
     });
-
     if (chars.size === 0) {
       const matches = (fallbackWord || '').match(/[\u4e00-\u9faf]/g) || [];
       matches.forEach(ch => chars.add(ch));
     }
-
     return [...chars];
   }
 
-  // =========================================================
-  // 1. INITIALIZE & LOAD LOCAL LIST
-  // =========================================================
   async function init() {
     if (typeof myWords !== 'undefined' && myWords) {
       rawWordList = myWords.split('\n').map(w => w.trim()).filter(Boolean);
@@ -592,44 +289,25 @@
       rawWordList = ["政治", "努力", "経験", "成功", "歴史", "自然", "環境"];
     }
 
-    // Start background animation with longer interval
     startBackgroundAnimation();
-
-    // Use IntersectionObserver to pause bg animation when not visible
     setupVisibilityObserver();
 
     await refreshForeground();
-
-    // Refresh foreground every 2 minutes instead of 1 (less API calls)
     setInterval(refreshForeground, 120000);
   }
 
-  // =========================================================
-  // 2. BACKGROUND ANIMATION — ENERGY OPTIMIZED
-  // • Spawn every 5s instead of 1.5s
-  // • Max 8 concurrent words (was unlimited)
-  // • Pause when tab is hidden
-  // =========================================================
   let bgSpawnInterval = null;
   let bgPaused = false;
 
   function startBackgroundAnimation() {
-    // Spawn the first word immediately (0 seconds delay)
     spawnBgWord();
-
-    // Then spawn a background word every 5 seconds (was 1.5s)
     bgSpawnInterval = setInterval(() => {
-      if (!bgPaused) {
-        spawnBgWord();
-      }
+      if (!bgPaused) spawnBgWord();
     }, 5000);
   }
 
   function spawnBgWord() {
-    if (rawWordList.length === 0) return;
-
-    // Limit concurrent words for GPU efficiency
-    if (currentBgWordCount >= MAX_BG_WORDS) return;
+    if (rawWordList.length === 0 || currentBgWordCount >= MAX_BG_WORDS) return;
 
     const word = rawWordList[Math.floor(Math.random() * rawWordList.length)];
     const el = document.createElement('div');
@@ -644,7 +322,6 @@
     currentBgWordCount++;
     document.getElementById('background').appendChild(el);
 
-    // Remove after animation completes (25s)
     setTimeout(() => {
       el.remove();
       currentBgWordCount--;
@@ -652,59 +329,15 @@
   }
 
   function setupVisibilityObserver() {
-    // Pause background animation when tab is hidden (saves GPU/CPU)
-    document.addEventListener('visibilitychange', () => {
-      bgPaused = document.hidden;
-    });
-
-    // Also pause on screen lock / display sleep (macOS specific)
+    document.addEventListener('visibilitychange', () => { bgPaused = document.hidden; });
     const mediaQuery = window.matchMedia('(display-mode: fullscreen)');
-    mediaQuery.addEventListener?.('change', () => {
-      // Resume if coming back from fullscreen/sleep
-      bgPaused = false;
-    });
+    mediaQuery.addEventListener?.('change', () => { bgPaused = false; });
   }
 
   // =========================================================
-  // 3. MULTI-PROXY FETCHING SYSTEM (with per-request timeout)
+  // 3. MULTI-PROXY FETCHING SYSTEM (Stabilized & Load Balanced)
   // =========================================================
-  const PROXY_TIMEOUT_MS = 12000;  // 12s timeout per proxy request
-
-  async function fetchWithTimeout(url, signal) {
-    return await fetch(url, { signal });
-  }
-
-  async function tryProxy(proxyUrl, targetUrl, isJson) {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), PROXY_TIMEOUT_MS);
-
-    try {
-      const res = await fetchWithTimeout(proxyUrl + encodeURIComponent(targetUrl), controller.signal);
-      clearTimeout(timeoutId);
-
-      if (!res.ok) {
-        console.warn(`Proxy ${proxyUrl.split('/')[2]} returned HTTP ${res.status}`);
-        return null;
-      }
-
-      const text = await res.text();
-
-      if (isJson) {
-        const parsed = JSON.parse(text);
-        return parsed;
-      }
-
-      return text;
-    } catch (e) {
-      clearTimeout(timeoutId);
-      if (e.name === 'AbortError') {
-        console.warn(`Proxy ${proxyUrl.split('/')[2]} timed out after ${PROXY_TIMEOUT_MS}ms`);
-      } else {
-        console.warn(`Proxy ${proxyUrl.split('/')[2]} failed: ${e.message}`);
-      }
-      return null;
-    }
-  }
+  const PROXY_TIMEOUT_MS = 8000;
 
   async function fetchWithProxy(targetUrl, isJson = true) {
     const proxies = [
@@ -713,25 +346,45 @@
       'https://api.codetabs.com/v1/proxy?quest='
     ];
 
-    let lastError = new Error("All proxies failed to connect to Jisho.");
+    // Shuffle proxies to balance load & bypass temporary rate blocks sequentially
+    proxies.sort(() => Math.random() - 0.5);
+    let lastError = new Error("All proxies failed.");
 
-    for (let i = 0; i < proxies.length; i++) {
-      const result = await tryProxy(proxies[i], targetUrl, isJson);
+    for (const proxyUrl of proxies) {
+      const fullUrl = proxyUrl + encodeURIComponent(targetUrl);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), PROXY_TIMEOUT_MS);
 
-      if (result !== null) {
-        return result;
+      try {
+        const res = await fetch(fullUrl, { signal: controller.signal });
+        clearTimeout(timeoutId);
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const text = await res.text();
+
+        if (isJson) {
+          try {
+            return JSON.parse(text);
+          } catch (e) {
+            throw new Error("Proxy returned invalid JSON (Likely a rate-limit HTML page)");
+          }
+        }
+        return text;
+      } catch (e) {
+        clearTimeout(timeoutId);
+        lastError = e;
+        console.warn(`Proxy ${proxyUrl.split('/')[2]} failed: ${e.message}`);
       }
-
-      lastError = new Error(`All ${proxies.length} proxies failed for ${targetUrl}`);
     }
 
     throw lastError;
   }
 
   // =========================================================
-  // 4. JISHO WORD DETAILS (with retry on network failure)
+  // 4. JISHO WORD DETAILS
   // =========================================================
-  async function fetchJishoWord(word, retryCount = 3) {
+  async function fetchJishoWord(word, retryCount = 2) {
     if (dictionaryCache[word]) return dictionaryCache[word];
 
     let lastError;
@@ -739,19 +392,35 @@
     for (let attempt = 0; attempt <= retryCount; attempt++) {
       try {
         const apiUrl = 'https://jisho.org/api/v1/search/words?keyword=' + encodeURIComponent(word);
-        const jisho = await fetchWithProxy(apiUrl, true);
+        
+        let jisho;
+        // Optimization: Try native fetch first. (If user has a CORS extension, this bypasses proxy limits entirely)
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 4000);
+          const res = await fetch(apiUrl, { signal: controller.signal });
+          clearTimeout(timeoutId);
+          if (res.ok) {
+            jisho = await res.json();
+          } else {
+            throw new Error("Direct API fetch failed");
+          }
+        } catch (directErr) {
+          // Fallback to proxy rotation
+          jisho = await fetchWithProxy(apiUrl, true);
+        }
 
-        // Check that we got valid JSON data back from Jisho
-        if (!jisho || !Array.isArray(jisho.data) || jisho.data.length === 0) {
-          // Word truly not found in Jisho (not a network error) — no point retrying
+        // Validate structure to ensure we didn't receive a JSON-formatted error page
+        if (!jisho || typeof jisho !== 'object' || !Array.isArray(jisho.data)) {
+          throw new Error('INVALID_API_RESPONSE'); 
+        }
+
+        if (jisho.data.length === 0) {
           throw new Error('JISHO_NOT_FOUND');
         }
 
         const entry = jisho.data[0];
-
-        if (!entry) {
-          throw new Error('JISHO_NO_ENTRY');
-        }
+        if (!entry) throw new Error('JISHO_NOT_FOUND');
 
         console.log(`✓ Fetched "${word}" successfully on attempt ${attempt + 1}`);
 
@@ -765,7 +434,7 @@
         if (entry.is_common) status.push('common word');
 
         const jlptValue = Array.isArray(entry.jlpt) ? entry.jlpt[0] : entry.jlpt;
-        if (jlptValue) status.push(`jlpt n${jlptValue}`);
+        if (jlptValue) status.push(`jlpt n${jlptValue.replace('jlpt-n', '')}`);
 
         if (Array.isArray(entry.tags) && entry.tags.length) {
           status.push(...entry.tags);
@@ -782,77 +451,42 @@
           antonyms: uniq(sense.antonyms || [])
         }));
 
-        const extraForms = uniq(
-          japaneseForms
-            .map(formatJapaneseForm)
-            .filter(Boolean)
-        );
-
-        const notes = uniq(
-          senses.flatMap(s => [
-            ...(s.info || []),
-            ...(s.tags || []),
-            ...(s.restrictions || [])
-          ])
-        );
-
+        const extraForms = uniq(japaneseForms.map(formatJapaneseForm).filter(Boolean));
+        const notes = uniq(senses.flatMap(s => [...(s.info || []), ...(s.tags || []), ...(s.restrictions || [])]));
         const relatedKanji = collectKanjiFromForms(japaneseForms, word);
 
-        const result = {
-          kanji,
-          reading,
-          meanings,
-          status,
-          extraForms,
-          notes,
-          relatedKanji,
-          japaneseForms
-        };
-
+        const result = { kanji, reading, meanings, status, extraForms, notes, relatedKanji, japaneseForms };
         dictionaryCache[word] = result;
         return result;
-
 
       } catch (e) {
         lastError = e;
 
-        // If the word is truly not in Jisho, no point retrying
         if (e.message === 'JISHO_NOT_FOUND' || e.message === 'JISHO_NO_ENTRY') {
-          const msg = e.message === 'JISHO_NOT_FOUND'
-            ? `${word} — Not found in Jisho`
-            : `${word} — No entry returned`;
+          const msg = e.message === 'JISHO_NOT_FOUND' ? `${word} — Not found in Jisho` : `${word} — No entry returned`;
           console.warn(msg);
           return {
-            kanji: word,
-            reading: "—",
+            kanji: word, reading: "—",
             meanings: [{ pos: [], defs: [msg], info: [], tags: [], restrictions: [], links: [], seeAlso: [], antonyms: [] }],
-            status: [],
-            extraForms: [],
-            notes: [],
-            relatedKanji: collectKanjiFromForms([], word),
-            japaneseForms: []
+            status: [], extraForms: [], notes: [],
+            relatedKanji: collectKanjiFromForms([], word), japaneseForms: []
           };
         }
 
-        // Network error — retry with a short delay
         if (attempt < retryCount) {
-          const delay = 2000 * (attempt + 1);
+          const delay = 2500 * (attempt + 1);
           console.warn(`⏳ fetchJishoWord("${word}") attempt ${attempt + 1} failed (${e.message}). Retrying in ${delay}ms...`);
           await new Promise(r => setTimeout(r, delay));
         }
       }
     }
 
-    // All retries exhausted — return fallback
     console.error(`✗ fetchJishoWord("${word}") failed after ${retryCount + 1} attempts:`, lastError?.message || lastError);
     return {
-      kanji: word,
-      reading: "—",
+      kanji: word, reading: "—",
       meanings: [{ pos: [], defs: ["Definition not found (network error)"], info: [], tags: [], restrictions: [], links: [], seeAlso: [], antonyms: [] }],
-      status: [],
-      extraForms: [],
-      notes: [],
-      relatedKanji: collectKanjiFromForms([], word),
+      status: [], extraForms: [], notes: [],
+      relatedKanji: [], // Omit kanji checks on network error to prevent cascading proxy failure
       japaneseForms: []
     };
   }
@@ -865,7 +499,24 @@
 
     try {
       const jishoUrl = 'https://jisho.org/search/' + encodeURIComponent(kanji) + '%20%23kanji';
-      const htmlText = await fetchWithProxy(jishoUrl, false);
+      let htmlText;
+
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+        const res = await fetch(jishoUrl, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (res.ok) {
+            htmlText = await res.text();
+        } else {
+            throw new Error("Direct fetch failed");
+        }
+      } catch (err) {
+        htmlText = await fetchWithProxy(jishoUrl, false);
+      }
+
+      if (!htmlText) throw new Error("No HTML returned");
+
       const doc = new DOMParser().parseFromString(htmlText, "text/html");
 
       const extractText = (selector) => {
@@ -878,25 +529,15 @@
       const frequency = extractText('.frequency') || '';
       const mainMeaning = extractText('.kanji-details__main-meanings') || extractText('.kanji-details__main-meanings-list') || '';
 
-      const kun = Array.from(doc.querySelectorAll('.kun_yomi a'))
-        .map(a => a.textContent.trim())
-        .filter(Boolean)
-        .join('、') || 'None';
-
-      const on = Array.from(doc.querySelectorAll('.on_yomi a'))
-        .map(a => a.textContent.trim())
-        .filter(Boolean)
-        .join('、') || 'None';
+      const kun = Array.from(doc.querySelectorAll('.kun_yomi a')).map(a => a.textContent.trim()).filter(Boolean).join('、') || 'None';
+      const on = Array.from(doc.querySelectorAll('.on_yomi a')).map(a => a.textContent.trim()).filter(Boolean).join('、') || 'None';
 
       const compounds = [];
       const allLis = doc.querySelectorAll('.row .span4 ul li');
       allLis.forEach(li => {
         if (compounds.length < 3) {
           let text = li.textContent.replace(/\s+/g, ' ').trim();
-          if (text) {
-            text = text.replace('】', '】 - ');
-            compounds.push(text);
-          }
+          if (text) compounds.push(text.replace('】', '】 - '));
         }
       });
 
@@ -904,34 +545,66 @@
       kanjiCache[kanji] = result;
       return result;
     } catch (e) {
-      console.error(e);
+      console.error("Failed to load Kanji:", kanji, e);
       return null;
     }
   }
+  // =========================================================
+  // OFFLINE CACHE SYSTEM
+  // =========================================================
+  const OFFLINE_CACHE_KEY = 'jisho_offline_cache';
+  const MAX_OFFLINE_WORDS = 100;
 
+  function saveToOfflineCache(word, wordData, kanjiResults) {
+    try {
+      // 1. Get existing cache
+      let cache = JSON.parse(localStorage.getItem(OFFLINE_CACHE_KEY) || '[]');
+      
+      // 2. Remove the word if it's already in the cache (so we can move it to the front)
+      cache = cache.filter(item => item.word !== word);
+      
+      // 3. Add the new successful fetch to the front
+      cache.unshift({ word, wordData, kanjiResults });
+      
+      // 4. Prune if we exceed the max limit
+      if (cache.length > MAX_OFFLINE_WORDS) {
+        cache.pop();
+      }
+      
+      // 5. Save back to localStorage
+      localStorage.setItem(OFFLINE_CACHE_KEY, JSON.stringify(cache));
+    } catch (e) {
+      console.warn("Failed to save to offline cache. Storage might be full or blocked.", e);
+    }
+  }
+
+  function getRandomFromOfflineCache() {
+    try {
+      const cache = JSON.parse(localStorage.getItem(OFFLINE_CACHE_KEY) || '[]');
+      if (cache.length === 0) return null;
+      
+      // Pick a random entry from our saved history
+      const randomIndex = Math.floor(Math.random() * cache.length);
+      return cache[randomIndex];
+    } catch (e) {
+      console.warn("Failed to read from offline cache.", e);
+      return null;
+    }
+  }
   // =========================================================
   // 6. RENDERERS
   // =========================================================
   function renderWordCard(wordData) {
     const statusHtml = wordData.status.length
-      ? `<div class="meta-tags">${wordData.status.map(s => `<span class="meta-tag">${escapeHtml(s)}</span>`).join('')}</div>`
-      : '';
+      ? `<div class="meta-tags">${wordData.status.map(s => `<span class="meta-tag">${escapeHtml(s)}</span>`).join('')}</div>` : '';
 
     const meaningHtml = wordData.meanings.map((sense, idx) => {
       const pos = sense.pos.length ? escapeHtml(sense.pos.join(' · ')) : 'Meaning';
       const defs = escapeHtml(sense.defs.join('; '));
-
-      const senseNotes = uniq([
-        ...sense.info,
-        ...sense.tags,
-        ...sense.restrictions,
-        ...sense.seeAlso.map(x => `see also: ${x}`),
-        ...sense.antonyms.map(x => `antonym: ${x}`)
-      ]);
+      const senseNotes = uniq([...sense.info, ...sense.tags, ...sense.restrictions, ...sense.seeAlso.map(x => `see also: ${x}`), ...sense.antonyms.map(x => `antonym: ${x}`)]);
 
       const linksHtml = sense.links.length
-        ? `<div class="inline-list" style="margin-top:0.5rem;">${sense.links.map(l => `<span class="inline-chip">${escapeHtml(l.text || 'link')}</span>`).join('')}</div>`
-        : '';
+        ? `<div class="inline-list" style="margin-top:0.5rem;">${sense.links.map(l => `<span class="inline-chip">${escapeHtml(l.text || 'link')}</span>`).join('')}</div>` : '';
 
       return `
         <div class="sense">
@@ -943,22 +616,14 @@
     }).join('');
 
     const formsHtml = wordData.extraForms.length
-      ? `<div class="detail-section">
-           <div class="detail-title">Other forms</div>
-           <div class="inline-list">
+      ? `<div class="detail-section"><div class="detail-title">Other forms</div><div class="inline-list">
              ${wordData.extraForms.map(f => `<span class="inline-chip">${escapeHtml(f)}</span>`).join('')}
-           </div>
-         </div>`
-      : '';
+         </div></div>` : '';
 
     const notesHtml = wordData.notes.length
-      ? `<div class="detail-section">
-           <div class="detail-title">Notes</div>
-           <div class="inline-list">
+      ? `<div class="detail-section"><div class="detail-title">Notes</div><div class="inline-list">
              ${wordData.notes.map(n => `<span class="inline-chip">${escapeHtml(n)}</span>`).join('')}
-           </div>
-         </div>`
-      : '';
+         </div></div>` : '';
 
     return `
       <div class="main-card">
@@ -966,19 +631,14 @@
         <div class="kanji">${escapeHtml(wordData.kanji)}</div>
         ${statusHtml}
         <div class="detail-grid" style="margin-top:1.25rem;">
-          <div class="detail-section">
-            <div class="detail-title">Meaning</div>
-            ${meaningHtml}
-          </div>
-          ${formsHtml}
-          ${notesHtml}
+          <div class="detail-section"><div class="detail-title">Meaning</div>${meaningHtml}</div>
+          ${formsHtml}${notesHtml}
         </div>
       </div>`;
   }
 
   function renderKanjiCard(kChar, kData) {
     if (!kData) return '';
-
     const compHtml = kData.compounds.length > 0
       ? kData.compounds.map(c => `<li style="margin-bottom:8px;">${escapeHtml(c)}</li>`).join('')
       : '<li>No common compounds</li>';
@@ -988,29 +648,10 @@
         <div class="k-char-title">${escapeHtml(kChar)}</div>
         <div class="k-stat">${escapeHtml(kData.grade)} | ${escapeHtml(kData.jlpt)}</div>
         <div class="k-freq">${escapeHtml(kData.frequency)}</div>
-
-        ${kData.mainMeaning ? `
-          <div class="k-section">
-            <span class="k-label">Meaning:</span>
-            <span class="k-value">${escapeHtml(kData.mainMeaning)}</span>
-          </div>` : ''}
-
-        <div class="k-section">
-          <span class="k-label">Kun:</span>
-          <span class="k-value">${escapeHtml(kData.kun)}</span>
-        </div>
-
-        <div class="k-section">
-          <span class="k-label">On:</span>
-          <span class="k-value">${escapeHtml(kData.on)}</span>
-        </div>
-
-        <div class="k-section" style="margin-top:1.5rem;">
-          <span class="k-label">Compounds:</span>
-          <ul class="compounds-list">
-            ${compHtml}
-          </ul>
-        </div>
+        ${kData.mainMeaning ? `<div class="k-section"><span class="k-label">Meaning:</span><span class="k-value">${escapeHtml(kData.mainMeaning)}</span></div>` : ''}
+        <div class="k-section"><span class="k-label">Kun:</span><span class="k-value">${escapeHtml(kData.kun)}</span></div>
+        <div class="k-section"><span class="k-label">On:</span><span class="k-value">${escapeHtml(kData.on)}</span></div>
+        <div class="k-section" style="margin-top:1.5rem;"><span class="k-label">Compounds:</span><ul class="compounds-list">${compHtml}</ul></div>
       </div>`;
   }
 
@@ -1028,50 +669,90 @@
     try {
       if (!rawWordList.length) {
         if (!hasRenderedOnce) {
-          fg.innerHTML = `
-            <div class="main-card">
-              <div class="meaning" style="color:#aaa;">No words available</div>
-            </div>`;
+          fg.innerHTML = `<div class="main-card"><div class="meaning" style="color:#aaa;">No words available</div></div>`;
         }
         return;
       }
 
       const word = rawWordList[Math.floor(Math.random() * rawWordList.length)] || '';
-
+      
+      // 1. Fetch data
       const wordData = await fetchJishoWord(word);
+      
+      // If the network error fallback triggered inside fetchJishoWord, throw an error to trigger offline cache
+      if (wordData.meanings[0].defs[0].includes("network error") || wordData.meanings[0].defs[0].includes("No entry")) {
+        throw new Error("Network or API failure detected");
+      }
 
       const kanjiList = uniq(wordData.relatedKanji);
-      const kanjiPromises = kanjiList.map(k => fetchKanjiDetails(k));
-      const kanjiResults = await Promise.all(kanjiPromises);
+      const kanjiResults = [];
+
+      // Fetch kanjis sequentially
+      for (let i = 0; i < kanjiList.length; i++) {
+        if (i > 0) await new Promise(r => setTimeout(r, 450));
+        kanjiResults.push(await fetchKanjiDetails(kanjiList[i]));
+      }
 
       if (thisRefresh !== refreshCounter) return;
 
-      let html = renderWordCard(wordData);
+      // 2. Save successful fetch to offline cache
+      saveToOfflineCache(word, wordData, kanjiResults);
 
+      // 3. Render HTML
+      let html = renderWordCard(wordData);
       if (kanjiList.length > 0) {
         html += `<div class="kanji-cards-container">`;
         kanjiResults.forEach((kData, idx) => {
-          html += renderKanjiCard(kanjiList[idx], kData);
+          if (kData) html += renderKanjiCard(kanjiList[idx], kData);
         });
         html += `</div>`;
       }
 
       fg.innerHTML = html;
       hasRenderedOnce = true;
-    } catch (err) {
-      console.error("Foreground render failed:", err);
 
-      if (!hasRenderedOnce) {
-        fg.innerHTML = `
-          <div class="main-card">
-            <div class="reading">Error</div>
-            <div class="meaning">Could not load Jisho data</div>
-          </div>`;
+    } catch (err) {
+      console.error("Foreground render failed, attempting to load from offline cache...", err);
+      
+      // ==========================================
+      // OFFLINE CACHE FALLBACK
+      // ==========================================
+      const cachedItem = getRandomFromOfflineCache();
+      
+      if (cachedItem) {
+        console.log(`Loaded "${cachedItem.word}" from local offline cache.`);
+        if (thisRefresh !== refreshCounter) return;
+
+        let html = renderWordCard(cachedItem.wordData);
+        
+        // Add an offline indicator so you know it's working
+        html = html.replace('class="meta-tags">', 'class="meta-tags"><span class="meta-tag" style="background: rgba(200,50,50,0.3); border-color: #ff6b6b; color: #ff6b6b;">Offline Cache</span>');
+
+        if (cachedItem.kanjiResults && cachedItem.kanjiResults.length > 0) {
+          html += `<div class="kanji-cards-container">`;
+          const kanjiList = uniq(cachedItem.wordData.relatedKanji);
+          
+          cachedItem.kanjiResults.forEach((kData, idx) => {
+            if (kData) html += renderKanjiCard(kanjiList[idx], kData);
+          });
+          html += `</div>`;
+        }
+
+        fg.innerHTML = html;
+        hasRenderedOnce = true;
+      } else {
+        // Only show the hard error if the network fails AND the cache is completely empty
+        if (!hasRenderedOnce) {
+          fg.innerHTML = `
+            <div class="main-card">
+              <div class="reading">Error</div>
+              <div class="meaning">Could not load Jisho data and offline cache is empty. Please check your network.</div>
+            </div>`;
+        }
       }
     }
   }
 
-  // Start the engine
   init();
 </script>
 </body>
