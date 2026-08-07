@@ -15,14 +15,16 @@ title: Home
       <p>
         I am currently a <strong>Specially Appointed Research Fellow</strong> at 
         <a href="https://www.tohoku.ac.jp/" target="_blank" rel="noopener">Tohoku University</a>, 
-        contributing to the <em>"Digital Biosphere"</em> project funded by MEXT. My research bridges 
-        the gap between experimental microbiology and computational modeling, with a focus on 
-        <strong>bioremediation</strong> and <strong>microbial community dynamics</strong>.
+        conducting research in the <strong>Mei Lab</strong> (Graduate School of Environmental Studies). 
+        My work bridges experimental microbiology and computational modeling, focusing on the 
+        <strong>bioremediation of water and air pollutants</strong>, as well as <strong>predictive microbial ecology</strong>. 
+        By combining wet-lab isolation of novel degraders with next-generation AI architectures, I aim to transform 
+        how we understand and utilize microbial communities for environmental restoration.
       </p>
       <p>
         Originally from Santiago, Chile, I moved to Sendai, Japan, in 2016. I hold a PhD in 
         Environmental Chemistry and possess a diverse professional background that spans from 
-        IT project engineering to wet-lab research.
+        IT project engineering to high-performance computing and wet-lab research.
       </p>
       <p>
         Outside of the lab, I enjoy walking, swimming, and reading novels and manga. 
@@ -35,12 +37,7 @@ title: Home
         <div class="timeline-item">
           <div class="timeline-date">2026 – Present</div>
           <div class="timeline-title">Specially Appointed Research Fellow (特任研究員)</div>
-          <div class="timeline-desc">Tohoku University</div>
-        </div>
-        <div class="timeline-item" style="background: rgba(49,130,206,0.06); border-radius: var(--radius-sm); padding: 12px !important;">
-          <div class="timeline-date">Apr 2026 – Present</div>
-          <div class="timeline-title">Mei Lab · Selenium Bioremediation (環境科学研究科)</div>
-          <div class="timeline-desc">Isolation of selenate-reducing consortia from mine wastewater · Bioaugmentation & reactor scale-up (<10 ppb Se target) · Bioinformatics pipelines for metagenomic analysis. <a href="https://web.tohoku.ac.jp/eco-remediation/" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: underline;">Visit Lab Website →</a></div>
+          <div class="timeline-desc">Tohoku University, Mei Lab (環境科学研究科) · <a href="https://web.tohoku.ac.jp/eco-remediation/" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: underline;">Visit Lab Website →</a></div>
         </div>
         <div class="timeline-item">
           <div class="timeline-date">April 2022 – March 2026</div>
@@ -97,15 +94,21 @@ title: Home
       </ul>
     </div>
     <div class="skill-card">
-      <h3>💻 Technical Skills</h3>
+      <h3>🧪 Wet Lab Techniques</h3>
       <ul class="skill-list">
-        <li>Python (Deep Learning / LSTM / JEPA / xLSTM)</li>
-        <li>Metagenomics & V3V4 Pipelines (HPC / AOBASC cluster)</li>
-        <li>Genomic Analysis & Bioinformatics (MATLAB scripts)</li>
-        <li>ICP-MS Sample Preparation & Quantitative Analysis</li>
-        <li>Experimental Design & Bioreactor Scale-up</li>
-        <li>Illumina & Nanopore Sequencing</li>
-        <li>Java, MATLAB</li>
+        <li>Microbial Isolation & Enrichment Cultures</li>
+        <li>Bioreactor Design & Scale-up</li>
+        <li>ICP-MS Quantitative Analysis</li>
+        <li>Plant Physiology & Field Work</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <h3>💻 Dry Lab & Computational Techniques</h3>
+      <ul class="skill-list">
+        <li>Deep Learning & AI (LSTM, JEPA, xLSTM)</li>
+        <li>Metagenomics & Bioinformatics Pipelines (HPC)</li>
+        <li>Illumina & Nanopore Sequencing Analysis</li>
+        <li>Python, MATLAB & Java Scripting</li>
       </ul>
     </div>
   </div>
@@ -122,57 +125,33 @@ title: Home
   <div class="research-section">
     <h3>
       <svg class="research-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Selenium Bioremediation & Mine Wastewater Treatment
+      Bioremediation of Water & Air Pollutants
     </h3>
     <p>
-      A core bottleneck in selenium-affected environments is the lack of effective <strong>selenate (Se⁶⁺)</strong> reducers 
-      compared to well-characterized selenite (Se⁴⁺) reducers. My current work targets this gap by isolating and 
-      characterizing selenate-reducing consortia from mine wastewater under <span class="stat-highlight">microaerobic conditions</span>, 
-      with the goal of achieving &lt;10 ppb selenium in treated effluent through bioaugmentation.
+      I focus on harnessing microbial processes to degrade persistent organic pollutants and heavy metals from 
+      contaminated water and air. My work spans the isolation of novel degraders, functional genomics, and 
+      bioreactor-scale bioaugmentation strategies. Key examples include the isolation of <em>Pseudomonas</em> sp. 
+      Stari2 for aerobic carbon tetrachloride degradation, and current efforts targeting selenate-reducing 
+      consortia for mine wastewater treatment.
     </p>
     <div class="highlight-text">
-      Key findings so far: complex media (BHI) provides essential electron donors and capping proteins for 
-      Selenium Nanoparticle (SeNP) stability, while <strong>lactate</strong> has been confirmed as a highly effective, 
-      cost-efficient electron donor even in minimal media. NGS identification of the consortium revealed 
-      <em>Ralstonia pickettii</em>, <em>Bacillus aerius</em>, and a novel <em>Anaerospora</em> sp. 
-      as probable selenate-reducing members — validated by targeted ICP-MS analysis.
-    </div>
-  </div>
-
-  <div class="research-section">
-    <h3>
-      <svg class="research-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
-      Bioremediation & Genomics
-    </h3>
-    <p>
-      I focus on the biodegradation of persistent organic pollutants. A key achievement of my doctoral work 
-      was the isolation of <em><strong>Pseudomonas sp. Stari2</strong></em>, a novel strain capable of 
-      degrading Carbon Tetrachloride (CT) under <span class="stat-highlight">aerobic conditions</span>.
-    </p>
-    <div class="highlight-text">
-      I successfully enriched a consortium capable of degrading 30 μM CT within one week and demonstrated 
-      that <em>Stari2</em> tolerates CT concentrations up to 5 mM. Utilizing joint Illumina/Nanopore sequencing, 
-      I identified specific dehalogenase enzymes and metabolic pathways essential for these strategies.
+      See: <em>Stari et al. (PhD Thesis, 2022)</em> on CT-degrading consortia, and ongoing selenium bioremediation projects at Mei Lab.
     </div>
   </div>
 
   <div class="research-section">
     <h3>
       <svg class="research-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
-      Microbial Ecology & Deep Learning
+      Microbial Ecology & Predictive AI
     </h3>
     <p>
       To bridge the gap between isolate characterization and ecosystem function, I study how microbial 
-      populations assemble. In the "Digital Biosphere" project, I apply deep learning techniques—specifically 
-      <span class="stat-highlight">LSTM (Long Short-Term Memory)</span> networks—to predict community succession. 
-      I am also exploring next-generation architectures (<strong>JEPA</strong>, <strong>xLSTM</strong>) to transform 
-      microbial ecology from an observation-heavy field into a highly predictive science.
+      communities assemble and respond to environmental shifts. Leveraging functional shotgun metagenomics 
+      and high-resolution time-series data, I apply next-generation AI architectures (LSTM, JEPA, xLSTM) 
+      to transform microbial ecology into a predictive science.
     </p>
     <div class="highlight-text">
-      Using high-resolution time-series data (<strong>522 samples</strong>), our models have achieved over 
-      <span class="stat-highlight">90% accuracy</span> in forecasting OTU profiles. We discovered that carbon 
-      sources act as deterministic filters and that the "Rare Biosphere" follows distinct successional trajectories 
-      compared to abundant taxa.
+      See: <em>Stari et al. (2026), ISME Communications</em> — "Carbon Source Acts as a Deterministic Filter Shaping Microbial Succession..."
     </div>
   </div>
 </section>
@@ -217,76 +196,37 @@ title: Home
   <p class="metrics-note">Metrics based on Scopus / Google Scholar data. Updated via Python script.</p>
 </section>
 
-<!-- Current Projects & Grants Section -->
+<!-- Current Projects Section -->
 <section id="projects" class="fade-in">
-  <h2>Current Projects & Grants</h2>
+  <h2>Current Projects</h2>
 
   <div class="research-section" style="border-left: 4px solid var(--accent);">
     <h3>🧪 Biological Selenium Removal from Mine Wastewater</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--space-sm);">
-      <strong>Role:</strong> Lead Researcher · <strong>Lab:</strong> Mei Lab, Tohoku University
-    </p>
     <p>
       Targeting the underexplored selenate (Se⁶⁺) reduction pathway, this project isolates and characterizes 
-      selenate-reducing bacterial consortia from selenium-affected mine wastewater. The dual-pathway approach 
-      combines strain isolation with bioaugmentation strategies, aiming to achieve selenium concentrations 
-      below <strong>10 ppb</strong> in treated effluent through lab-scale and pilot reactor testing.
+      selenate-reducing bacterial consortia from selenium-affected mine wastewater. The approach combines 
+      strain isolation with bioaugmentation strategies, aiming to achieve selenium concentrations below 
+      10 ppb in treated effluent through lab-scale and pilot reactor testing.
     </p>
   </div>
 
   <div class="research-section" style="border-left: 4px solid #38a169;">
-    <h3>🤖 AI-Driven Prediction of Microbial Community Dynamics (SPReAD Grant)</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--space-sm);">
-      <strong>Status:</strong> Application Drafted · <strong>AI Architectures:</strong> LSTM, JEPA, xLSTM
-    </p>
+    <h3>🤖 AI-Driven Prediction of Bacterial Communities</h3>
     <p>
-      Proposing the use of advanced AI architectures — including <strong>Joint Embedding Predictive Architecture (JEPA)</strong> 
-      and <strong>Expanded LSTM (xLSTM)</strong> — to predict microbial community dynamics from time-series sequencing data. 
-      This project bridges classical microbiology with cutting-edge computational biology, aiming to transform 
-      microbial ecology into a predictive science.
+      Leveraging functional shotgun metagenomic data and high-resolution time-series sequencing, this project 
+      applies next-generation AI architectures (LSTM, JEPA, xLSTM) to predict microbial community dynamics 
+      and succession patterns. The goal is to transform microbial ecology from an observation-heavy field 
+      into a highly predictive science.
     </p>
   </div>
 
   <div class="research-section" style="border-left: 4px solid #805ad5;">
-    <h3>📝 JSPS KAKENHI Young Researchers Grant (若手研究)</h3>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--space-sm);">
-      <strong>Status:</strong> In Preparation
-    </p>
+    <h3>💨 Bioremediation of Contaminated Air</h3>
     <p>
-      Developing a research proposal for the JSPS KAKENHI Young Researchers Grant, building on findings from 
-      the selenium bioremediation and microbial succession work to secure independent research funding.
+      Investigating microbial degradation of volatile organic compounds (VOCs) and persistent gaseous pollutants. 
+      Building on previous work with carbon tetrachloride, this project explores biofilter and bioreactor 
+      systems for treating industrial and environmental air emissions.
     </p>
-  </div>
-</section>
-
-<!-- Recent Activity Section -->
-<section id="activity" class="fade-in">
-  <h2>Recent Research Activity</h2>
-  <div class="activity-timeline">
-    <div class="activity-card">
-      <div class="activity-month">Jul 2026</div>
-      <div class="activity-content">
-        <strong>Lactate confirmed as key electron donor</strong> for selenate reduction in minimal media — a major step toward cost-effective reactor-scale bioaugmentation. Isolation of novel <em>Anaerospora</em> sp. and <em>Ralstonia pickettii</em>. Site visit to Kosaka Seiren copper/silver smelter for industrial sampling opportunities.
-      </div>
-    </div>
-    <div class="activity-card">
-      <div class="activity-month">Jun 2026</div>
-      <div class="activity-content">
-        NGS sequencing identified key consortium members: <em>Ralstonia</em>, <em>Bacillus</em>, and <em>Anaerospora</em> (near 0% in selenite-only samples → strong selenate reducer candidate). Confirmed that complex BHI proteins are needed to cap Selenium Nanoparticles. Set up ICP-MS sample prep with Germanium internal standard.
-      </div>
-    </div>
-    <div class="activity-card">
-      <div class="activity-month">May 2026</div>
-      <div class="activity-content">
-        Initiated selenate enrichment cultures under microaerobic conditions. First reddish color changes observed in 1/10 BHI — indicating elemental selenium (Se⁰) formation. Set up AOBASC HPC cluster and metagenomic analysis pipelines (V3V4 & shotgun).
-      </div>
-    </div>
-    <div class="activity-card">
-      <div class="activity-month">Apr 2026</div>
-      <div class="activity-content">
-        Transitioned to Mei Lab. Finalized selenium removal research plan with dual-pathway approach (isolation vs. bioaugmentation). Drafted SPReAD grant application proposing LSTM/JEPA/xLSTM for microbial dynamics prediction. Field work for EDPR solar project & biotron plant experiments.
-      </div>
-    </div>
   </div>
 </section>
 
@@ -420,7 +360,7 @@ title: Home
 
   <div class="contact-map">
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3236.5!2d140.8827!3d38.2692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6002b0e1c1c1c1c1%3A0x1234567890abcdef!2sTohoku+University+Graduate+School+of+Environmental+Studies!5e0!3m2!1sen!2sjp!4v1700000000000!5m2!1sen!2sjp"
+      src="https://maps.google.com/maps?q=6-6-20+Aoba,+Aoba-ku,+Sendai,+Miyagi+980-8579,+Japan&z=15&output=embed"
       width="100%"
       height="300"
       style="border:0; border-radius: var(--radius-lg);"
@@ -429,7 +369,8 @@ title: Home
       referrerpolicy="no-referrer-when-downgrade">
     </iframe>
     <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: var(--space-sm); text-align: center;">
-      📍 Tohoku University, Graduate School of Environmental Studies (Mei Lab) · Sendai, Japan
+      📍 〒980-8579 宮城県仙台市青葉区荒巻字青葉6-6-20<br>
+      東北大学大学院 環境科学研究科研究棟 4F (Mei Lab)
     </p>
   </div>
 </section>
