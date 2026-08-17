@@ -360,7 +360,7 @@ title: Home
 
   <div class="contact-map">
     <iframe
-      src="https://maps.google.com/maps?q=6-6-20+Aoba,+Aoba-ku,+Sendai,+Miyagi+980-8579,+Japan&z=15&output=embed"
+      src="https://maps.google.com/maps?q=38.254812,140.842963&z=17&output=embed"
       width="100%"
       height="300"
       style="border:0; border-radius: var(--radius-lg);"
